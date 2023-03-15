@@ -45,6 +45,9 @@ class Weapon(Component):
         #Type of damage dealt by this weapon (Ballistic or Energy for Primary Weapon, Explosive or EMP for Secondary Weapon)
         self.damage_type = damage_type
 
+    def getProjectile(self):
+        return self.projectile
+
 class Body(Component):
     def __init__(self, modifier, recharge, multiplier, slot, rarity, name, image):
         #Slot can be Hull, Shield, or Armor

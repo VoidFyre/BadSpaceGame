@@ -17,7 +17,7 @@ class Ship(pygame.sprite.Sprite):
     def shootPrimary(self):
         color = {0,0,0}
         self.primary = self.equipped['primary']
-        #self.projectile = #projectile image
+        self.projectile = self.primary.getProjectile()
 
         self.projectileVel = {0,1}
 
