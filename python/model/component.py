@@ -36,6 +36,9 @@ class Weapon(Component):
     def __init__(self, fire_rate, damage_type, slot, rarity, name, image, projectile):
         super().__init__(slot, rarity, name, image)
 
+        #Projectile shot by this weapon
+        self.projectile = projectile
+
         #Amount of times this weapon fires PER SECOND
         self.fire_rate = fire_rate
 
