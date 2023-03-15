@@ -33,11 +33,8 @@ class Component(pygame.sprite.Sprite):
             
 
 class Weapon(Component):
-    def __init__(self, damage, fire_rate, damage_type, slot, rarity, name, image):
+    def __init__(self, fire_rate, damage_type, slot, rarity, name, image, projectile):
         super().__init__(slot, rarity, name, image)
-
-        #Amount of damage a weapon deals PER SHOT
-        self.damage = damage
 
         #Amount of times this weapon fires PER SECOND
         self.fire_rate = fire_rate
