@@ -2,36 +2,30 @@ import pygame
 from controller.GameController import GameController
 from view.GameView import GameView
 from model.GameModel import GameModel
+from model.GameState import GameState
+from view.MenuView import Menu
 
-def main():
-    # Set up the game window and clock
-    width = 800
-    height = 600
-    game_view = GameView(width, height)
-    clock = pygame.time.Clock()
 
-    # Set up the game model and controller
-    game_model = GameModel()
-    game_controller = GameController(game_model, game_view)
+class Main:
+    def __init__(self):
+        self.game_state = None
 
-    # Run the game loop
-    while True:
-        # Handle events
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                return
+    def main(self):
+        # Set up the game window and clock
+        height = 750
+        width = 750
 
-            # game_controller.handle_event(event)
 
-        # Update the game state
-        game_controller.update()
+        self.game_state = GameState(width, height)
 
-        # Draw the game
-        game_view.draw(game_model.game_state)
+        self.game_state.playing = True
 
-        # Limit the frame rate
-        clock.tick(60)
+        self.game_controller = GameController(self.game_state, None, None)
+
+        self.menu_view = Menu(self.game_state)
+
+        self.game_controller.run_game_loop()
 
 if __name__ == "__main__":
-    main()
+    Main().main()
+

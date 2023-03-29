@@ -2,6 +2,7 @@ import pygame
 from view.SpaceshipView import SpaceshipView
 from view.EnemyView import EnemyView
 from view.PowerUpView import PowerUpView
+from view.MenuView import Menu
 
 
 class GameView:
@@ -17,9 +18,14 @@ class GameView:
             # 'explosion': pygame.mixer.Sound('assets/sounds/explosion.wav'),
             # 'powerup': pygame.mixer.Sound('./assets/sounds/powerup.wav')
         }
+
+        self.menu_view = Menu()
         self.spaceship_view = SpaceshipView()
         self.enemy_view = EnemyView()
         self.powerup_view = PowerUpView()
+
+    def drawMenu(self, game):
+        return
 
     def draw(self, model):
         self.screen.blit(self.background, (0, 0))
