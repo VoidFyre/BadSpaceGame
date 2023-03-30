@@ -1,1 +1,75 @@
-## BAD SPACE GAME
+# Bad Things in Outer Space: The Game
+
+## Game Documentation : ==Milestone 1==
+- **Changes to your game and development design** :
+  - Due to the timeline changes, we have decided to combine and rethink our milestones to better represent the tasks we are aiming to complete. The following changes have been made for Milestone 1 :
+    - We have begin work on the Ship mechanics as far as basic movement and navigation through the map.
+    - Enemies who are able to spawn into the map and shoot at the character to deal damage.
+    - A working health bar that depletes every time a projectile hits the player., or when the player collides with an enemy ship.
+
+- **How has your game evolved since you started working on it?**
+  - Our original concept involved the ship moving up and down on a map, shooting horizontally at enemies moving towards the ship. It evolved from that into an omnidirectional shooter, where enemies can attack from all four sides of the map in waves.
+
+- **An updated version of your project timeline**
+  - Task 1 : Player Movement and Control
+    - Mohit : 80%
+      - Created Controller Input
+      - Worked on altering speed of player
+      - Projectiles
+      - Health Bar
+    - Damyon : 20%
+      - Slightly altered player movement
+      - Worked with Noah on assets for the ship and projectiles.
+  - Task 2 : Assets
+    - Noah : 80%
+      - Created inventory, spaceship, and power up assets to be used in game
+    - Damyon : 20%
+      - Worked with Noah on the assets used
+  - Task 3 : Enemies
+    - Mohit : 100%
+      - Created enemy movement and shooting mechanics
+  - Milestone 1 (March 30th)
+    - Tasks : 
+      - Finalize game concepts and mechanics
+      - Create level designs for the first three stages
+      - Develop player movement and shooting mechanics
+      - Create basic enemy AI, eg. movement and shooting
+      - Develop a UI
+    - Updated Game Design Document : 
+      - Include finalized game concept and mechanics
+      - Include level designs for the first three levels
+      - Describe player movement and shooting mechanics
+      - Describe basic enemy AI movement and shooting
+  - Milestone 2 (April 12)
+    - Tasks:
+      - Finish level designs
+      - Implement level power ups and different ranked ship upgrades (Common, Uncommon, Rare, Epic, Legendary)
+      - Design and implement sound effects and music
+      - Create main menu and pause menu screens
+      - Conduct playtesting and make necessary adjustments
+      - Begin large scale bug testing
+      - Begin finalization
+    - Updated Game Document : 
+      - Include all completed level designs
+      - Describe power-ups and upgrades
+      - Include sound effects and music implementation details
+      - Include main menu and pause menu screen design
+      - Describe playtesting results and adjustments made based on feedback
+      - Begin finalizing game document
+  - Final Game Submission
+    - Tasks : 
+      - Finalize the game
+      - Submit the final game and game design document
+    - Updated Game Document : 
+      - Include all updated and finalized game details
+      - Describe final game development and submission.
+
+- **What tasks have been postponed or moved up?**
+  - We've postponed a leveling system, and the collection system to be turned in during milestone 2. 
+- **Any technical challenges you and your team have encountered**
+  - Some technical challenges mainly come from the use of GitHub. With three of us working on this project, there have been some occasional misshapes when dealing with pushing and pulling. The best solution for this would be for us to create branches.
+  - Other technical challenges include ensuring that we understand the syntax for Pygame. Sometimes working between Recs and Sprites can get confusing/complicated.
+- **How will these challenges impact your development timeline?**
+  - The timeline of our development hasn't really been impacted due to these challenges. Thankfully, they've been rather easy to solve and work around. 
+- **Will your final game design need to change?**
+  - Our final game design probably wont need to be changed or altered. The state of the game has remained relatively the same. The only change that I can see that needs to be made is that we've opted to go for a 'free roam' type strategy as opposed to a stationary one. Although this decision is subject to change.
