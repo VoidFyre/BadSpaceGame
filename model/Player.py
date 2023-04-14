@@ -9,7 +9,7 @@ class Player(Spaceship):
     def __init__(self, x, y, health=100):
         super().__init__(x, y, health)
 
-        self.ship_img  = pygame.image.load(os.path.join("assets", "pixel_ship_blue_small.png"))
+        self.ship_img  = pygame.image.load(os.path.join("assets", "pixel_ship_yellow.png"))
         self.laser_img = pygame.image.load(os.path.join("assets", "pixel_laser_yellow.png"))
         self.mask = pygame.mask.from_surface(self.ship_img)
         self.max_health = health

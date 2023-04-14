@@ -1,133 +1,129 @@
+__all__ = ['main']
+
 import pygame
-import pygame_gui
-import os
+import pygame_menu
+from pygame_menu.examples import create_example_window
 
-from controller.GameController import GameController
-from model.GameState import GameState
+from typing import Optional
 
-pygame.init()
+# Constants and global variables
+FPS = 60
+WINDOW_SIZE = (750, 750)
 
-# Set up the Pygame window
-window_size = (640, 480)
-screen = pygame.display.set_mode(window_size)
-pygame.display.set_caption("Menu View")
+sound: Optional['pygame_menu.sound.Sound'] = None
+surface: Optional['pygame.Surface'] = None
+main_menu: Optional['pygame_menu.Menu'] = None
 
-# Set up the background image
-background_image = pygame.image.load(os.path.join("assets", "space_background_2.png"))
+# Load image
+background_image = pygame_menu.BaseImage(
+    image_path='/Users/macbookair/PycharmProjects/BadSpaceGame/assets/space_background_9.png'
 
-# Create the GUI manager
-gui_manager = pygame_gui.UIManager(window_size)
-
-# Create the buttons
-start_button = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((220, 225), (200, 50)),
-    text="Start",
-    manager=gui_manager
 )
 
-options_button = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((220, 300), (200, 50)),
-    text="Options",
-    manager=gui_manager
+background_image2 = pygame_menu.BaseImage(
+    image_path='/Users/macbookair/PycharmProjects/BadSpaceGame/assets/space_background_10.png'
+
 )
 
-credits_button = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((220, 375), (200, 50)),
-    text="Credits",
-    manager=gui_manager
-)
-
-level1_button = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((220, 225), (200, 50)),
-    text="Level 1",
-    manager=gui_manager,
-    visible=False
-)
-
-level2_button = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((440, 225), (200, 50)),
-    text="Level 2",
-    manager=gui_manager,
-    visible=False
-)
-
-level3_button = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((660, 225), (200, 50)),
-    text="Level 3",
-    manager=gui_manager,
-    visible=False
-)
-
-back_button = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((10, 10), (100, 30)),
-    text="Back",
-    manager=gui_manager,
-    visible=False
-)
-
-# Run the game loop
-clock = pygame.time.Clock()
-is_running = True
+def main_background() -> None:
+    """
+    Background color of the main menu, on this function user can plot
+    images, play sounds, etc.
+    """
+    background_image.draw(surface)
 
 
-def start_game():
-    # Set up the game window and clock
-    height = 750
-    width = 750
+def main(test: bool = False) -> None:
+    """
+    Main program.
+    :param test: Indicate function is being tested
+    """
+    global main_menu
+    global sound
+    global surface
 
-    game_state = GameState(width, height)
+    # Create window
+    surface = create_example_window('Example - Image Background', WINDOW_SIZE)
+    clock = pygame.time.Clock()
 
-    game_state.playing = True
+    # Create menus: Main menu
+    main_menu_theme = pygame_menu.themes.THEME_DARK.copy()
+    main_menu_theme.set_background_color_opacity(0.5)  # 50% opacity
 
-    game_controller = GameController(game_state, None, None)
+    main_menu_theme.background_color = background_image2
+    main_menu_theme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE
+    main_menu_theme.widget_alignment = pygame_menu.locals.ALIGN_CENTER
+    main_menu_theme.widget_font = pygame_menu.font.FONT_MUNRO
+    #main_menu_theme.widget_selection_effect = pygame_menu.widgets.RightArrowSelection
+    main_menu_theme.widget_margin = (0, 20)
+    main_menu_theme.widget_offset = (40, 0)
+    main_menu_theme.title_offset = (20, 10)
+    main_menu_theme.title_font = pygame_menu.font.FONT_MUNRO
+    main_menu_theme.selection_effect = pygame_menu.widgets.RightArrowSelection()
 
-    #menu_view = Menu(self.game_state)
-
-    game_controller.run_game_loop()
-
-while is_running:
-    time_delta = clock.tick(60) / 1000.0
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            is_running = False
-
-        elif event.type == pygame.USEREVENT:
-            if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == start_button:
-                    start_button.kill()
-                    options_button.kill()
-                    credits_button.kill()
-                    level1_button.visible = True
-                    level2_button.visible = True
-                    level3_button.visible = True
-                    back_button.visible = True
-
-                elif event.ui_element == level1_button:
-                    pygame.quit()
-                    start_game()  # This is where you would call your game function
-
-                elif event.ui_element == back_button:
-                    level1_button.visible = False
-                    level2_button.visible = False
-                    level3_button.visible = False
-                    back_button.visible = False
-                    start_button.visible = True
-                    options_button.visible = True
-                    credits_button.visible = True
-
-                # Add code to handle the other level buttons here
-
-        gui_manager.process_events(event)
-
-    gui_manager.update(time_delta)
-    screen.blit(background_image, (0, 0))
-    gui_manager.draw_ui(screen)
-    pygame.display.update()
-
-pygame.quit()
+    main_menu = pygame_menu.Menu(
+        height=WINDOW_SIZE[1] * 0.6,
+        onclose=pygame_menu.events.EXIT,  # User press ESC button
+        theme=main_menu_theme,
+        title='Menu',
+        width=WINDOW_SIZE[0] * 0.7,
+    )
 
 
+    theme_bg_image = main_menu_theme.copy()
+    theme_bg_image.background_color = pygame_menu.BaseImage(
+        image_path=pygame_menu.baseimage.IMAGE_EXAMPLE_CARBON_FIBER
+    )
+    theme_bg_image.title_font_size = 25
+    menu_with_bg_image = pygame_menu.Menu(
+        height=WINDOW_SIZE[1] * 0.6,
+        onclose=pygame_menu.events.EXIT,
+        theme=theme_bg_image,
+        title='Menu with background image',
+        width=WINDOW_SIZE[0] * 0.7
+    )
+    menu_with_bg_image.add.button('Back', pygame_menu.events.BACK)
+    menu_with_bg_image.widget_font = pygame_menu.font.FONT_MUNRO
+
+    widget_colors_theme = pygame_menu.themes.THEME_DARK.copy()
+    widget_colors_theme.widget_margin = (0, 10)
+    widget_colors_theme.widget_padding = 0
+    widget_colors_theme.widget_selection_effect.margin_xy(10, 5)
+    widget_colors_theme.widget_font_size = 20
+    widget_colors_theme.set_background_color_opacity(0.5)  # 50% opacity
+    widget_colors_theme.background_color = background_image
+    widget_colors_theme.widget_font = pygame_menu.font.FONT_MUNRO
+    #widget_colors_theme.widget_selection_effect = pygame_menu.widgets.RightArrowSelection
+
+    widget_colors = pygame_menu.Menu(
+        height=WINDOW_SIZE[1] * 0.7,
+        theme=widget_colors_theme,
+        title='',
+        width=WINDOW_SIZE[0] * 0.8
+    )
+
+    widget_colors.add.label('Made with lots of love <3')
+
+    main_menu.add.button('Play', menu_with_bg_image, align=pygame_menu.locals.ALIGN_LEFT)
+    main_menu.add.button('Credit', widget_colors, align=pygame_menu.locals.ALIGN_LEFT)
+    main_menu.add.button('Quit', pygame_menu.events.EXIT, align=pygame_menu.locals.ALIGN_LEFT)
+
+    # Main loop
+    while True:
+
+        # Tick
+        clock.tick(FPS)
+
+        # Main menu
+        main_menu.mainloop(surface, main_background, disable_loop=test, fps_limit=FPS)
+
+        # Flip surface
+        pygame.display.flip()
+
+        # At first loop returns
+        if test:
+            break
 
 
-
+if __name__ == '__main__':
+    main()

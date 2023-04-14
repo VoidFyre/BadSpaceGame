@@ -5,6 +5,8 @@ from model.Laser import Laser
 from model.Player import Player
 from view import SpaceshipView, EnemyView, PowerUpView, GameView
 
+from view.MainMenuView import MainMenuView
+
 def collide(obj1, obj2):
     offset_x = obj2.x - obj1.x
     offset_y = obj2.y - obj1.y
@@ -18,6 +20,7 @@ class GameController:
         self.game_state = game_state
 
         self.player = Player(300, 620)
+        self.mainMenuView = MainMenuView()
 
     def check_key_pressed(self):
         keys = pygame.key.get_pressed()
@@ -120,16 +123,22 @@ class GameController:
         pygame.display.update()
 
     def run_game_loop(self):
-        while self.game_state.running:
+
+        while self.game_state.running and self.game_state.playing is False:
+            print("run_game_loop called")
+            self.mainMenuView.set_game_state(self.game_state)
+            self.mainMenuView.run()
+            print("got out of run looop called")
+
+            #self.game_state.check_events()
+
+        while self.game_state.playing:
             self.game_state.clock.tick(self.game_state.FPS)
             self.redraw_window()
 
             self.update_dashboard()
 
             self.game_state.check_events()
-
-            if self.game_state.playing is False:
-                continue
 
             if len(self.game_state.enemies) == 0:
                 self.game_state.level += 1

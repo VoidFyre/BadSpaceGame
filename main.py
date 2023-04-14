@@ -15,14 +15,9 @@ class Main:
         height = 750
         width = 750
 
-
         self.game_state = GameState(width, height)
 
-        self.game_state.playing = True
-
         self.game_controller = GameController(self.game_state, None, None)
-
-        self.menu_view = Menu(self.game_state)
 
         self.game_controller.run_game_loop()
 
