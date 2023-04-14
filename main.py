@@ -3,8 +3,6 @@ from controller.GameController import GameController
 from view.GameView import GameView
 from model.GameModel import GameModel
 from model.GameState import GameState
-from view.MenuView import Menu
-
 
 class Main:
     def __init__(self):

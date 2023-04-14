@@ -29,11 +29,11 @@ class MainMenuView:
             width=self.WINDOW_SIZE[0] * 0.7,
         )
 
-        self.play_menu_button = self._create_play_menu_button(theme=main_menu_theme)
+        #self.play_menu_button = self._create_play_menu_button(theme=main_menu_theme)
         self.widget_colors = self._create_widget_colors(theme=widget_colors_theme)
 
         # Add buttons to main menu
-        self.main_menu.add.button('Play', self.play_menu_button, align=pygame_menu.locals.ALIGN_LEFT)
+        self.main_menu.add.button('Play',  self.play_button_callback, align=pygame_menu.locals.ALIGN_LEFT)
         self.main_menu.add.button('Credit', self.widget_colors, align=pygame_menu.locals.ALIGN_LEFT)
         self.main_menu.add.button('Quit', pygame_menu.events.EXIT, align=pygame_menu.locals.ALIGN_LEFT)
 

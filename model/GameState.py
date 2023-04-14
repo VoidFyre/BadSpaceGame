@@ -1,11 +1,6 @@
 import pygame
 import os
 
-from view.MenuView import MainMenu, StartMenu, CreditsMenu
-
-from model.Spaceship import Spaceship
-
-
 class GameState:
     __instance = None  # class variable to hold the singleton instance
 
@@ -30,7 +25,7 @@ class GameState:
         self.lost = False
         self.lost_count = 0
 
-        self.running, self.playing, self.game_over = True, False, False
+        self.running, self.playing, self.game_over, self.pause = True, False, False, False
 
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESCAPE_KEY, self.SPACE_KEY = False, False, False, False, False, False
 
@@ -43,11 +38,6 @@ class GameState:
         self.font_name = pygame.font.get_default_font()
 
         self.BLACK, self.WHITE = (0, 0, 0), (255, 255, 255)
-
-        self.main_menu = MainMenu(self)
-        self.start = StartMenu(self)
-        self.credits = CreditsMenu(self)
-        self.curr_menu = self.main_menu
 
         self.clock = pygame.time.Clock()
 
@@ -66,12 +56,7 @@ class GameState:
         self.YELLOW_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_yellow.png"))
 
         # Background
-        self.BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")), (self.DISPLAY_W, self.DISPLAY_H))
-
-        self.BG_1 = pygame.transform.scale(pygame.image.load(os.path.join("assets", "space_background_1.png")),
-                                         (self.DISPLAY_W, self.DISPLAY_H))
-        self.BG_2 = pygame.transform.scale(pygame.image.load(os.path.join("assets", "space_background_2.png")),
-                                           (self.DISPLAY_W, self.DISPLAY_H))
+        self.BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "space_background_9.png")).convert_alpha(), (self.DISPLAY_W, self.DISPLAY_H))
 
     def draw_text(self, text, size, x, y):
         font = pygame.font.Font(self.font_name, size)
@@ -87,7 +72,6 @@ class GameState:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running, self.playing = False, False
-                self.curr_menu.run_display = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     self.START_KEY = True

@@ -1,11 +1,13 @@
 import pygame
 import random
 from model.Enemy import Enemy
-from model.Laser import Laser
 from model.Player import Player
-from view import SpaceshipView, EnemyView, PowerUpView, GameView
 
 from view.MainMenuView import MainMenuView
+from view.PauseMenuView import PauseMenuView
+
+from view.MovingBackgroundView import MovingBackgroundView
+
 
 def collide(obj1, obj2):
     offset_x = obj2.x - obj1.x
@@ -20,7 +22,17 @@ class GameController:
         self.game_state = game_state
 
         self.player = Player(300, 620)
+
         self.mainMenuView = MainMenuView()
+        self.mainMenuView.set_game_state(self.game_state)
+
+        self.pauseMenuView = PauseMenuView()
+        self.pauseMenuView.set_game_state(self.game_state)
+
+        self.movingBackgroundView = MovingBackgroundView()
+        self.movingBackgroundView.set_game_state(self.game_state)
+
+        self.scroll = 0
 
     def check_key_pressed(self):
         keys = pygame.key.get_pressed()
@@ -36,6 +48,10 @@ class GameController:
             self.player.y += self.game_state.player_vel
         if keys[pygame.K_SPACE]:
             self.player.shoot()
+        if keys[pygame.K_ESCAPE]:
+            self.game_state.pause = True
+            self.game_state.playing = False
+
 
     def update(self):
         self.model.update()
@@ -102,7 +118,10 @@ class GameController:
                         self.view.play_sound_effect('explosion')
 
     def redraw_window(self):
-        self.game_state.window.blit(self.game_state.BG_2, (0,0))
+
+        #self.game_state.window.blit(self.game_state.BG, (0, self.scroll))
+
+        self.movingBackgroundView.run()
 
         # draw text
         lives_label = self.game_state.main_font.render(f"Lives: {self.game_state.lives}", 1, (255, 255, 255))
@@ -124,34 +143,39 @@ class GameController:
 
     def run_game_loop(self):
 
-        while self.game_state.running and self.game_state.playing is False:
-            print("run_game_loop called")
-            self.mainMenuView.set_game_state(self.game_state)
-            self.mainMenuView.run()
-            print("got out of run looop called")
+        while self.game_state.running:
 
-            #self.game_state.check_events()
+            while self.game_state.playing is False and self.game_state.pause is False:
+                self.mainMenuView.run()
 
-        while self.game_state.playing:
-            self.game_state.clock.tick(self.game_state.FPS)
-            self.redraw_window()
+            while self.game_state.playing is False and self.game_state.pause is True:
+                self.pauseMenuView.run()
 
-            self.update_dashboard()
+            while self.game_state.playing:
 
-            self.game_state.check_events()
+                self.game_state.clock.tick(self.game_state.FPS)
 
-            if len(self.game_state.enemies) == 0:
-                self.game_state.level += 1
-                self.game_state.wave_length += 5
-                for i in range(self.game_state.wave_length):
-                    enemy = Enemy(random.randrange(50, 750 - 100), random.randrange(-1500, -10),
-                                  random.choice(["red", "blue", "green"]))
-                    self.game_state.enemies.append(enemy)
+                self.redraw_window()
 
-            self.check_key_pressed()
+                self.update_dashboard()
 
-            self.generate_random_enemy()
+                self.game_state.check_events()
 
-            self.player.move_lasers(-self.game_state.laser_vel, self.game_state.enemies)
+                if len(self.game_state.enemies) == 0:
+                    self.game_state.level += 1
+                    self.game_state.wave_length += 5
+                    for i in range(self.game_state.wave_length):
+                        enemy = Enemy(random.randrange(50, 750 - 100), random.randrange(-1500, -10),
+                                      random.choice(["red", "blue", "green"]))
+                        self.game_state.enemies.append(enemy)
+
+                self.check_key_pressed()
+
+                self.generate_random_enemy()
+
+                self.player.move_lasers(-self.game_state.laser_vel, self.game_state.enemies)
+
+
+
 
 
