@@ -43,9 +43,13 @@
   - Milestone 2 (April 12)
     - Tasks:
       - Finish level designs
-      - Implement level power ups and different ranked ship upgrades (Common, Uncommon, Rare, Epic, Legendary)
+      - Task 2 : Finish Assets
+	- Noah : 100%
+	 - Finished All ships, ship extras, and enemy ships
       - Design and implement sound effects and music
-      - Create main menu and pause menu screens
+      - Task 3 : Create main menu and pause menu screens
+	- Noah 50%
+	 - Created GUI buttons/panels for menu screens and lives, finished design for player inventory screen
       - Conduct playtesting and make necessary adjustments
       - Begin large scale bug testing
       - Begin finalization
