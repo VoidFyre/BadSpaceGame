@@ -73,7 +73,7 @@ class PauseMenuView:
         )
         menu.add.button('Back', pygame_menu.events.BACK)
         menu.widget_font = pygame_menu.font.FONT_MUNRO
-        menu.set_onupdate(self.play_button_callback)
+        menu.set_onupdate(self.main_menu_callback)
         return menu
 
     def _create_widget_colors_theme(self):
