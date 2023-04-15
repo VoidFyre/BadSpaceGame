@@ -43,13 +43,7 @@
   - Milestone 2 (April 12)
     - Tasks:
       - Finish level designs
-      - Task 2 : Finish Assets
-	- Noah : 100%
-	 - Finished All ships, ship extras, and enemy ships
-      - Design and implement sound effects and music
-      - Task 3 : Create main menu and pause menu screens
-	- Noah 50%
-	 - Created GUI buttons/panels for menu screens and lives, finished design for player inventory screen
+      - Finish Assets
       - Conduct playtesting and make necessary adjustments
       - Begin large scale bug testing
       - Begin finalization
@@ -77,3 +71,76 @@
   - The timeline of our development hasn't really been impacted due to these challenges. Thankfully, they've been rather easy to solve and work around. 
 - **Will your final game design need to change?**
   - Our final game design probably wont need to be changed or altered. The state of the game has remained relatively the same. The only change that I can see that needs to be made is that we've opted to go for a 'free roam' type strategy as opposed to a stationary one. Although this decision is subject to change.
+ ---
+
+  ## Game Documentation : ==Milestone 2==
+- **Changes to your game and development design** :
+  - For this milestone, we have implemented the GUI for the game, as well as some new assets to better fit the aesthetic of the game.
+  - We’ve also opted to go for an endless shooter as opposed to a level system. The player will now encounter ‘waves’ of enemies rather than pre-specified enemies. These enemies will get progressively harder.
+
+- **How has your game evolved since you started working on it?**
+  - Since our original concept, and our current changes, it hasn't evolved too much. Especially since we re-decided to go for an endless shooter. Our hope is that we will still be able to implement some sort of modular system for the ship to allow for an easier time fighting harder enemies.
+
+- **An updated version of your project timeline**
+  - Task 1 : GUI Implementation
+    - Mohit : 80%
+      - Created the base code for adding a start menu and pause menu  to the game
+      - Also implemented a moving background.
+    - Damyon : 20%
+      - Created a simple design using Figma for an implementation of the different menus.
+  - Task 2 : Assets
+    - Noah : 80%
+      - Finished some assets to be used in the game including the inventory system and a few of the extra elements that will be implemented into the game as far as character design.
+        - Multiple Tiers of Ship
+        - Multiple Tiers of Bullets
+        - Multiple Tiers of Thrusters
+        - Multiple Tiers of Weapons
+        - Multiple Tiers of Enemies
+    - Damyon : 20%
+      - Worked closely with Noah to help design and provide creative insight on the design of certain aspects of the assets.
+        - Color’s for rarities, small design changes
+  - Milestone 1 (March 30th)
+    - Tasks : 
+      - Finalize game concepts and mechanics
+      - Create level designs for the first three stages
+      - Develop player movement and shooting mechanics
+      - Create basic enemy AI, eg. movement and shooting
+      - Develop a UI
+    - Updated Game Design Document : 
+      - Include finalized game concept and mechanics
+      - Include level designs for the first three levels
+      - Describe player movement and shooting mechanics
+      - Describe basic enemy AI movement and shooting
+  - Milestone 2 (April 12)
+    - Tasks:
+      - GUI Implimentation
+      - Finish Assets
+      - Conduct playtesting and make necessary adjustments
+      - Begin large scale bug testing
+      - Begin finalization
+    - Updated Game Document : 
+      - Include all completed level designs
+      - Describe power-ups and upgrades
+      - Include sound effects and music implementation details
+      - Include main menu and pause menu screen design
+      - Describe playtesting results and adjustments made based on feedback
+      - Begin finalizing game document
+  - Final Game Submission
+    - Tasks : 
+      - Finish the power up system
+      - Finish bug testing
+      - Polish the game
+    - Updated Game Document : 
+      - Include all updated and finalized game details
+      - Describe final game development and submission.
+
+- **What tasks have been postponed or moved up?**
+  - As of now, the remaining tasks that need to be implemented are mainly polishing and implementing the modular system. Both of which shouldn’t be too difficult to put into the game to make it complete. If we have time, we would like to implement some sort of Boss battle system to add an extra layer of challenge to the game. This will likely be a single boss that shows up after the player completes 5/10 waves.
+  - We hope to allow the boss to have a higher chance of dropping a more powerful upgrade for the player ship.
+- **Any technical challenges you and your team have encountered**
+  - We’ve had an issue with pausing the game where the player character and enemies are still able to shoot and move after the player dies.
+  - This likely also happens when the game is paused.
+- **How will these challenges impact your development timeline?**
+  - It shouldn’t have an impact on our development timeline, as these challenges should be simple to overcome within the future.
+- **Will your final game design need to change?**
+  - The final game design won't need to change.
