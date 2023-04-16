@@ -1,5 +1,6 @@
 from model.Laser import Laser
 
+
 class Spaceship:
     COOLDOWN = 30
 
@@ -35,7 +36,7 @@ class Spaceship:
 
     def shoot(self):
         if self.cool_down_counter == 0:
-            laser = Laser(self.x, self.y, self.laser_img)
+            laser = Laser(self.x+20, self.y-18, self.laser_img)
             self.lasers.append(laser)
             self.cool_down_counter = 1
 

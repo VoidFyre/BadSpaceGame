@@ -11,9 +11,9 @@ class Enemy(Spaceship):
     def __init__(self, x, y, color, health=100):
         super().__init__(x, y, health)
 
-        self.RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_red_small.png"))
-        self.GREEN_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_green_small.png"))
-        self.BLUE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_blue_small.png"))
+        self.RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_common.png"))
+        self.GREEN_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_epic.png"))
+        self.BLUE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_legendary.png"))
 
         # Lasers
         self.RED_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_red.png"))
