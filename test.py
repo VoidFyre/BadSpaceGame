@@ -14,7 +14,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Endless Scroll")
 
 #load image
-bg = pygame.image.load("/Users/macbookair/PycharmProjects/BadSpaceGame/assets/space_background_11.png").convert_alpha()
+bg = pygame.image.load("assets/space_background_11.png").convert_alpha()
 bg_width = bg.get_width()
 bg_rect = bg.get_rect()
 
