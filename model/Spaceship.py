@@ -12,6 +12,7 @@ class Spaceship:
         self.laser_img = None
         self.lasers = []
         self.cool_down_counter = 0
+        self.laser_size = (64, 64)
 
     def draw(self, window):
         window.blit(self.ship_img, (self.x, self.y))
@@ -36,7 +37,7 @@ class Spaceship:
 
     def shoot(self):
         if self.cool_down_counter == 0:
-            laser = Laser(self.x+20, self.y-18, self.laser_img)
+            laser = Laser(self.x+20, self.y-18, self.laser_img, self.laser_size)
             self.lasers.append(laser)
             self.cool_down_counter = 1
 

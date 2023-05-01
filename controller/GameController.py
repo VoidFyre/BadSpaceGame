@@ -129,6 +129,11 @@ class GameController:
 
         self.player.draw(self.game_state.window)
 
+        self.game_state.window.blit(self.player.ship_img, (self.player.x, self.player.y))
+        self.game_state.window.blit(self.player.primary_img, (self.player.x, self.player.y))
+        self.game_state.window.blit(self.player.secondary_img, (self.player.x, self.player.y))
+        self.game_state.window.blit(self.player.thruster_img, (self.player.x, self.player.y))
+
         if self.game_state.lost:
             lost_label = self.game_state.lost_font.render("You Lost!!", 1, (255, 255, 255))
             self.game_state.window.blit(lost_label, (750 / 2 - lost_label.get_width() / 2, 350))

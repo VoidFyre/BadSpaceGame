@@ -28,24 +28,19 @@ class Enemy(Spaceship):
                                                                   "/projectile_primary_epic.png"))
         self.LEGENDARY_LASER = pygame.image.load(os.path.join("assets", "component/primary/projectile"
                                                                      "/projectile_primary_legendary.png"))
+        # Laser Size
+        self.SMALL_LASER = (64, 64)
+        self.LARGE_LASER = (32, 256)
 
-        self.COLOR_MAP = {
-            "common": (self.COMMON_SPACE_SHIP, self.COMMON_LASER),
-            "uncommon": (self.UNCOMMON_SPACE_SHIP, self.UNCOMMON_LASER),
-            "rare": (self.RARE_SPACE_SHIP, self.RARE_LASER),
-            "epic": (self.EPIC_SPACE_SHIP, self.EPIC_LASER),
-            "legendary": (self.LEGENDARY_SPACE_SHIP, self.LEGENDARY_LASER)
+        self.RARITY_MAP = {
+            "common": (self.COMMON_SPACE_SHIP, self.COMMON_LASER, self.SMALL_LASER),
+            "uncommon": (self.UNCOMMON_SPACE_SHIP, self.UNCOMMON_LASER, self.SMALL_LASER),
+            "rare": (self.RARE_SPACE_SHIP, self.RARE_LASER, self.SMALL_LASER),
+            "epic": (self.EPIC_SPACE_SHIP, self.EPIC_LASER, self.LARGE_LASER),
+            "legendary": (self.LEGENDARY_SPACE_SHIP, self.LEGENDARY_LASER, self.LARGE_LASER)
         }
 
-        self.LASER_SIZE = {
-            "common": (30,60),
-            "uncommon": (15,30),
-            "rare": (30,60),
-            "epic": (15,30),
-            "legendary": (15,30)
-        }
-
-        self.ship_img, self.laser_img = self.COLOR_MAP[choice]
+        self.ship_img, self.laser_img, self.laser_size = self.RARITY_MAP[choice]
         self.mask = pygame.mask.from_surface(self.ship_img)
 
     def move(self, vel):
@@ -53,6 +48,6 @@ class Enemy(Spaceship):
 
     def shoot(self):
         if self.cool_down_counter == 0:
-            laser = Laser(self.x+8, self.y, self.laser_img)
+            laser = Laser(self.x+8, self.y, self.laser_img, self.laser_size)
             self.lasers.append(laser)
             self.cool_down_counter = 1

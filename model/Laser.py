@@ -8,11 +8,11 @@ def collide(obj1, obj2):
 
 
 class Laser:
-    def __init__(self, x, y, img):
+    def __init__(self, x, y, img, size):
         self.x = x
         self.y = y
         self.img = img
-        self.img = pygame.transform.scale(img, (40, 40))
+        self.img = pygame.transform.scale(img, size)
         self.mask = pygame.mask.from_surface(self.img)
 
         self.mask = pygame.mask.from_surface(self.img)
