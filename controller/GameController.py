@@ -36,6 +36,7 @@ class GameController:
 
     def check_key_pressed(self):
         keys = pygame.key.get_pressed()
+        mouse = pygame.mouse.get_pressed()
         if keys[pygame.K_a] and self.player.x - self.game_state.player_vel > 0:  # left
             self.player.x -= self.game_state.player_vel
         if keys[
@@ -46,8 +47,10 @@ class GameController:
         if keys[
             pygame.K_s] and self.player.y + self.game_state.player_vel + self.player.get_height() + 15 < self.game_state.DISPLAY_H:  # down
             self.player.y += self.game_state.player_vel
-        if keys[pygame.K_SPACE]:
-            self.player.shoot()
+        if mouse[0]:
+            self.player.shoot_primary()
+        if mouse[2]:
+            self.player.shoot_secondary()
         if keys[pygame.K_ESCAPE]:
             self.game_state.pause = True
             self.game_state.playing = False
