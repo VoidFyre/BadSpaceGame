@@ -10,6 +10,8 @@ class MainMenuView:
 
     def __init__(self):
 
+        self.button_sound = pygame.mixer.Sound(os.path.join("assets", "sounds/button_press.ogg"))
+
         self.game_state = None
 
         # Load background images
@@ -39,6 +41,7 @@ class MainMenuView:
 
     def play_button_callback(self):
         # Do something when the play button is clicked
+        self.button_sound.play()
         self.game_state.playing = True
 
     def _create_main_menu_theme(self):

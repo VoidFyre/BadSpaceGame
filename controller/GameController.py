@@ -1,5 +1,6 @@
 import pygame
 import random
+import os
 from model.Enemy import Enemy
 from model.Player import Player
 
@@ -17,6 +18,8 @@ def collide(obj1, obj2):
 
 class GameController:
     def __init__(self, game_state, model, view):
+        self.death = pygame.mixer.Sound(os.path.join("assets", "sounds/death.ogg"))
+
         self.model = model
         self.view = view
         self.game_state = game_state
@@ -95,7 +98,7 @@ class GameController:
             if pygame.sprite.collide_rect(self.model.spaceship, enemy):
                 self.model.spaceship.hit(enemy.damage)
                 self.model.enemies.remove(enemy)
-                self.view.play_sound_effect('explosion')
+                self.death.play()
 
         for powerup in self.model.powerups:
             if pygame.sprite.collide_rect(self.model.spaceship, powerup):
@@ -108,11 +111,11 @@ class GameController:
                 if pygame.sprite.collide_rect(bullet, enemy):
                     enemy.hit(bullet.damage)
                     self.model.spaceship.bullets.remove(bullet)
-                    self.view.play_sound_effect('explosion')
+                    self.death.play()
                     if enemy.health <= 0:
                         self.model.enemies.remove(enemy)
                         self.model.score += enemy.score_value
-                        self.view.play_sound_effect('explosion')
+                        self.death.play()
 
     def redraw_window(self):
 
@@ -144,6 +147,9 @@ class GameController:
         pygame.display.update()
 
     def run_game_loop(self):
+        pygame.mixer.music.load(os.path.join("assets", "sounds/background_music.ogg"))
+        pygame.mixer.music.set_volume(0.2)
+        pygame.mixer.music.play(-1)
 
         while self.game_state.running:
 

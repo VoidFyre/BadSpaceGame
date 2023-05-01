@@ -1,6 +1,7 @@
 import pygame
 from controller.GameController import GameController
 from model.GameState import GameState
+import os
 
 class Main:
     def __init__(self):
