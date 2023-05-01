@@ -155,8 +155,10 @@ class GameController:
                     self.game_state.level += 1
                     self.game_state.wave_length += 5
                     for i in range(self.game_state.wave_length):
+
+                        choice = random.choice(["common", "uncommon", "rare", "epic", "legendary"])
                         enemy = Enemy(random.randrange(50, 750 - 100), random.randrange(-1500, -10),
-                                      random.choice(["red", "blue", "green"]))
+                                      choice)
                         self.game_state.enemies.append(enemy)
 
                 self.redraw_window()
