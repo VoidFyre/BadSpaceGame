@@ -1,6 +1,6 @@
 import pygame
 
-class PowerUpView:
+class UpgradeView:
     def __init__(self):
         self.images = {
             'weapon': pygame.image.load("./assets/interface/inventory_screen.png"),

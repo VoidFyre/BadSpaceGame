@@ -50,4 +50,4 @@ class Enemy(Spaceship):
         if self.cool_down_counter == 0:
             laser = Laser(self.x+8, self.y, self.laser_img, self.laser_size)
             self.lasers.append(laser)
-            self.cool_down_counter = 1
+            self.cool_down_counter = 30
