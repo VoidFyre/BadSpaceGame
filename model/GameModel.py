@@ -1,6 +1,6 @@
 from model.Spaceship import Spaceship
 from model.Enemy import Enemy
-from model.PowerUp import PowerUp
+from model.Upgrade import PowerUp
 from model.GameState import GameState
 
 
