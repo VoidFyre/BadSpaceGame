@@ -41,20 +41,6 @@ class GameState:
 
         self.clock = pygame.time.Clock()
 
-        # Load images
-        self.RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_red_small.png"))
-        self.GREEN_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_green_small.png"))
-        self.BLUE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_blue_small.png"))
-
-        # Player player
-        self.YELLOW_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_yellow.png"))
-
-        # Lasers
-        self.RED_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_red.png"))
-        self.GREEN_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_green.png"))
-        self.BLUE_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_blue.png"))
-        self.YELLOW_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_yellow.png"))
-
         # Background
         self.BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "space_background_9.png")).convert_alpha(), (self.DISPLAY_W, self.DISPLAY_H))
 
