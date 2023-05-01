@@ -21,7 +21,7 @@ class GameController:
         self.view = view
         self.game_state = game_state
 
-        self.player = Player(300, 620)
+        self.player = Player(300, 680)
 
         self.mainMenuView = MainMenuView()
         self.mainMenuView.set_game_state(self.game_state)
@@ -78,12 +78,6 @@ class GameController:
         if self.game_state.lives <= 0 or self.player.health <= 0:
             self.game_state.lost = True
             self.game_state.lost_count += 1
-
-        if self.game_state.lost:
-            if self.game_state.lost_count > self.game_state.FPS * 3:
-                self.game_state.playing = False
-            else:
-                return
 
         if len(self.game_state.enemies) == 0:
             self.game_state.level += 1
@@ -153,27 +147,32 @@ class GameController:
 
             while self.game_state.playing:
 
-                self.game_state.clock.tick(self.game_state.FPS)
-
-                self.redraw_window()
-
-                self.update_dashboard()
-
                 self.game_state.check_events()
+
+                self.game_state.clock.tick(self.game_state.FPS)
 
                 if len(self.game_state.enemies) == 0:
                     self.game_state.level += 1
                     self.game_state.wave_length += 5
                     for i in range(self.game_state.wave_length):
+
+                        choice = random.choice(["common", "uncommon", "rare", "epic", "legendary"])
                         enemy = Enemy(random.randrange(50, 750 - 100), random.randrange(-1500, -10),
-                                      random.choice(["red", "blue", "green"]))
+                                      choice)
                         self.game_state.enemies.append(enemy)
+
+                self.redraw_window()
 
                 self.check_key_pressed()
 
                 self.generate_random_enemy()
 
                 self.player.move_lasers(-self.game_state.laser_vel, self.game_state.enemies)
+
+                self.update_dashboard()
+
+                if self.game_state.lost:
+                    self.game_state.playing = False
 
 
 
