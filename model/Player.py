@@ -4,6 +4,8 @@ import os
 
 from model.Spaceship import Spaceship
 
+from model.Explosion import Explosion
+
 
 class Player(Spaceship):
     def __init__(self, x, y):
@@ -113,7 +115,6 @@ class Player(Spaceship):
         if self.game_state.player_current_thruster == "legendary":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_legendary.png"))
 
-
     def set_game_state(self, game_state):
         self.game_state = game_state
 
@@ -130,21 +131,33 @@ class Player(Spaceship):
                         if obj.health <= 0:
                             objs.remove(obj)
 
-                            self.game_state.total_killing += 1
+                            self.track_score_and_kills(obj)
 
-                            if obj.rarity == "common":
-                                self.game_state.score_counter += 1
-                            if obj.rarity == "uncommon":
-                                self.game_state.score_counter += 2
-                            if obj.rarity == "rare":
-                                self.game_state.score_counter += 3
-                            if obj.rarity == "epic":
-                                self.game_state.score_counter += 4
-                            if obj.rarity == "legendary":
-                                self.game_state.score_counter += 5
+                            self.create_explosion(obj)
 
                             if laser in self.lasers:
                                 self.lasers.remove(laser)
+
+    def create_explosion(self, obj):
+        explosion = Explosion(obj.get_x(), obj.get_y())
+
+        self.game_state.explosions.append(explosion)
+
+        explosion.play_sound()
+
+    def track_score_and_kills(self, obj):
+        self.game_state.total_killing += 1
+
+        if obj.rarity == "common":
+            self.game_state.score_counter += 1
+        if obj.rarity == "uncommon":
+            self.game_state.score_counter += 2
+        if obj.rarity == "rare":
+            self.game_state.score_counter += 3
+        if obj.rarity == "epic":
+            self.game_state.score_counter += 4
+        if obj.rarity == "legendary":
+            self.game_state.score_counter += 5
 
     def draw(self, window):
         super().draw(window)

@@ -72,6 +72,7 @@ class GameController:
         self.gameOverMenuView.set_game_state(self.game_state)
 
         self.scroll = 0
+
     def check_key_pressed(self):
         keys = pygame.key.get_pressed()
         mouse = pygame.mouse.get_pressed()
@@ -182,30 +183,6 @@ class GameController:
                 if is_valid_position:
                     self.game_state.healthAids.append(heathAid)
 
-    def check_collisions(self):
-        for enemy in self.model.enemies:
-            if pygame.sprite.collide_rect(self.model.spaceship, enemy):
-                self.model.spaceship.hit(enemy.damage)
-                self.model.enemies.remove(enemy)
-                self.death.play()
-
-        for powerup in self.model.powerups:
-            if pygame.sprite.collide_rect(self.model.spaceship, powerup):
-                powerup.apply_effect(self.model.spaceship)
-                self.model.powerups.remove(powerup)
-                self.view.play_sound_effect('powerup')
-
-        for bullet in self.model.spaceship.bullets:
-            for enemy in self.model.enemies:
-                if pygame.sprite.collide_rect(bullet, enemy):
-                    enemy.hit(bullet.damage)
-                    self.model.spaceship.bullets.remove(bullet)
-                    self.death.play()
-                    if enemy.health <= 0:
-                        self.model.enemies.remove(enemy)
-                        self.model.score += enemy.score_value
-                        self.death.play()
-
     def redraw_window(self):
 
         #self.game_state.window.blit(self.game_state.BG, (0, self.scroll))
@@ -247,6 +224,9 @@ class GameController:
         for health in self.game_state.healthAids:
             health.draw(self.game_state.window)
 
+        for explosion in self.game_state.explosions:
+            explosion.draw(self.game_state.window)
+
         self.player.draw(self.game_state.window)
 
         self.game_state.window.blit(self.player.ship_img, (self.player.x, self.player.y))
@@ -255,6 +235,10 @@ class GameController:
         self.game_state.window.blit(self.player.thruster_img, (self.player.x, self.player.y))
 
         pygame.display.update()
+
+    def clean_up(self):
+        for explosion in self.game_state.explosions[:]:
+            self.game_state.explosions.remove(explosion)
 
     def run_game_loop(self):
 
@@ -298,6 +282,8 @@ class GameController:
                 self.player.move_lasers(-self.game_state.laser_vel, self.game_state.enemies)
 
                 self.redraw_window()
+
+                self.clean_up()
 
                 if self.game_state.lost:
                     self.game_state.playing = False

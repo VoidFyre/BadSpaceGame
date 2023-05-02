@@ -12,6 +12,9 @@ class Enemy(Spaceship):
         super().__init__(x, y, health = 20, ship_img = None)
         self.rarity = rarity
 
+        # Create a timer for enemy shooting
+        self.enemy_shoot_timer = pygame.time.get_ticks()
+
         self.COMMON_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_common.png"))
         self.UNCOMMON_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_uncommon.png"))
         self.RARE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_rare.png"))
@@ -31,7 +34,7 @@ class Enemy(Spaceship):
                                                                      "/projectile_primary_legendary.png"))
         # Laser Size
         self.SMALL_LASER = (64, 64)
-        self.LARGE_LASER = (32, 256)
+        self.LARGE_LASER = (28, 100)
 
         # Health
         self.COMMON_HEALTH = 100 * (1 + (0.1 * wave))
@@ -67,3 +70,15 @@ class Enemy(Spaceship):
             laser = Laser(self.x+8, self.y, self.laser_img, self.laser_size)
             self.lasers.append(laser)
             self.cool_down_counter = 30
+
+    def get_x(self):
+        return self.x
+
+    def get_y(self):
+        return self.y
+
+    def get_height(self):
+        return self.ship_img.get_height()
+
+    def get_width(self):
+        return self.ship_img.get_width()
