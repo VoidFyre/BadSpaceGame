@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 import os
 
 from model.GameState import GameState
@@ -97,7 +98,8 @@ class GameController:
             enemy.move(self.game_state.enemy_vel)
             enemy.move_lasers(self.game_state.laser_vel, self.player)
 
-            if random.randrange(0, 2 * 60) == 1:
+            # Only allow enemy to shoot if it is on screen and with a certain probability
+            if enemy.y > 0 and random.randrange(0, 2*60) == 1:
                 enemy.shoot()
 
             if collide(enemy, self.player):
@@ -114,15 +116,35 @@ class GameController:
             self.game_state.lost = True
             self.game_state.lost_count += 1
 
+    # def spawn_random_enemy(self):
+    #     if len(self.game_state.enemies) == 0:
+    #         self.game_state.level += 1
+    #         self.game_state.wave_length += 5
+    #         for i in range(self.game_state.wave_length):
+    #             choice = random.choice(["common", "uncommon", "rare", "epic", "legendary"])
+    #             enemy = Enemy(random.randrange(50, 750 - 100), random.randrange(-1500, -10),
+    #                           choice)
+    #             self.game_state.enemies.append(enemy)
+
+    def get_distance(self, x1, y1, x2, y2):
+        return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+
     def spawn_random_enemy(self):
         if len(self.game_state.enemies) == 0:
             self.game_state.level += 1
             self.game_state.wave_length += 5
             for i in range(self.game_state.wave_length):
                 choice = random.choice(["common", "uncommon", "rare", "epic", "legendary"])
-                enemy = Enemy(random.randrange(50, 750 - 100), random.randrange(-1500, -10),
-                              choice)
-                self.game_state.enemies.append(enemy)
+                enemy = Enemy(random.randrange(50, 750 - 100), random.randrange(-1500, -10), choice)
+                # Check the distance between each existing enemy and the new enemy being created
+                is_valid_position = True
+                for existing_enemy in self.game_state.enemies:
+                    if self.get_distance(existing_enemy.x, existing_enemy.y, enemy.x, enemy.y) < 100:
+                        is_valid_position = False
+                        break
+                # If the position is valid, add the enemy to the game state
+                if is_valid_position:
+                    self.game_state.enemies.append(enemy)
 
     def check_collisions(self):
         for enemy in self.model.enemies:
