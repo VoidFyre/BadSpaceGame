@@ -113,7 +113,6 @@ class Player(Spaceship):
         if self.game_state.player_current_thruster == "legendary":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_legendary.png"))
 
-        
 
     def set_game_state(self, game_state):
         self.game_state = game_state

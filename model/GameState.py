@@ -15,8 +15,10 @@ class GameState:
         #self.lost_font = pygame.font.SysFont("comicsans", 60)
 
         self.enemies = []
+        self.healthAids = []
         self.wave_length = 5
         self.enemy_vel = 1
+        self.healthAids_vel = 1
 
         self.player_vel = 5
         self.laser_vel = 5
@@ -85,6 +87,7 @@ class GameState:
         self.level = 0
 
         self.enemies = []
+        self.healthAids = []
         self.wave_length = 5
         self.enemy_vel = 1
 

@@ -8,6 +8,8 @@ from model.GameState import GameState
 from model.Enemy import Enemy
 from model.Player import Player
 
+from model.HealthAid import HealthAid
+
 from view.MainMenuView import MainMenuView
 from view.PauseMenuView import PauseMenuView
 from view.GameOverMenuView import GameOverMenuView
@@ -91,14 +93,7 @@ class GameController:
             self.game_state.pause = True
             self.game_state.playing = False
 
-
-    def update(self):
-        self.model.update()
-
-    def draw(self):
-        self.view.draw(self.model)
-
-    def random_enemy_shooting(self):
+    def random_enemy_shoot_and_collision_check(self):
         for enemy in self.game_state.enemies[:]:
             enemy.move(self.game_state.enemy_vel)
             enemy.move_lasers(self.game_state.laser_vel, self.player)
@@ -113,6 +108,26 @@ class GameController:
 
             elif enemy.y + enemy.get_height() > 750:
                 self.game_state.enemies.remove(enemy)
+
+    def random_health_move_and_collision_check(self):
+        for healthAid in self.game_state.healthAids[:]:
+            healthAid.move(self.game_state.healthAids_vel)
+            #healthAid.move_lasers(self.game_state.laser_vel, self.player)
+
+            # Only allow enemy to shoot if it is on screen and with a certain probability
+            if collide(healthAid, self.player):
+
+                healthAid.play_sound()
+
+                self.player.health += 10
+
+                if self.player.health > self.player.max_health:
+                    self.player.health = self.player.max_health
+
+                self.game_state.healthAids.remove(healthAid)
+
+            elif healthAid.y + healthAid.get_height() > 750:
+                self.game_state.healthAids.remove(healthAid)
 
     def update_game_status(self):
         # if self.game_state.lives <= 0 or self.player.health <= 0:
@@ -150,6 +165,22 @@ class GameController:
                 # If the position is valid, add the enemy to the game state
                 if is_valid_position:
                     self.game_state.enemies.append(enemy)
+
+    def spawn_random_health_aids(self):
+        if len(self.game_state.healthAids) == 0:
+            self.game_state.level += 1
+            self.game_state.wave_length = random.randrange(0,5)
+            for i in range(self.game_state.wave_length):
+                heathAid = HealthAid(random.randrange(50, 750 - 100), random.randrange(-1500, -10))
+                # Check the distance between each existing enemy and the new enemy being created
+                is_valid_position = True
+                for existing_healthAid in self.game_state.healthAids:
+                    if self.get_distance(existing_healthAid.x, existing_healthAid.y, heathAid.x, heathAid.y) < 100:
+                        is_valid_position = False
+                        break
+                # If the position is valid, add the enemy to the game state
+                if is_valid_position:
+                    self.game_state.healthAids.append(heathAid)
 
     def check_collisions(self):
         for enemy in self.model.enemies:
@@ -213,6 +244,9 @@ class GameController:
         for enemy in self.game_state.enemies:
             enemy.draw(self.game_state.window)
 
+        for health in self.game_state.healthAids:
+            health.draw(self.game_state.window)
+
         self.player.draw(self.game_state.window)
 
         self.game_state.window.blit(self.player.ship_img, (self.player.x, self.player.y))
@@ -255,7 +289,11 @@ class GameController:
 
                 self.spawn_random_enemy()
 
-                self.random_enemy_shooting()
+                self.random_enemy_shoot_and_collision_check()
+
+                self.spawn_random_health_aids()
+
+                self.random_health_move_and_collision_check()
 
                 self.player.move_lasers(-self.game_state.laser_vel, self.game_state.enemies)
 
