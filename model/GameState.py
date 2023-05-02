@@ -49,6 +49,12 @@ class GameState:
 
         self.player_current_ship = "common"
 
+        self.player_current_primary = "common"
+
+        self.player_current_secondary = "common"
+
+        self.player_current_thruster = "common"
+
         # Background
         self.BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "space_background_9.png")).convert_alpha(), (self.DISPLAY_W, self.DISPLAY_H))
 

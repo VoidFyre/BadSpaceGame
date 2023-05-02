@@ -5,11 +5,11 @@ import os
 
 class Spaceship:
 
-    def __init__(self, x, y, health=100):
+    def __init__(self, x, y, health, ship_img):
         self.x = x
         self.y = y
         self.health = health
-        self.ship_img = None
+        self.ship_img = ship_img
         self.laser_img = None
         self.lasers = []
         self.cool_down_counter = 0
@@ -19,6 +19,8 @@ class Spaceship:
         self.primary_proj_size = (64, 64)
         self.secondary_proj_size = (32, 32)
         self.shoot_sound = pygame.mixer.Sound(os.path.join("assets", "sounds/laser_fire.ogg"))
+
+        self.laser_dmg = 10
 
     def draw(self, window):
         window.blit(self.ship_img, (self.x, self.y))
@@ -32,7 +34,7 @@ class Spaceship:
             if laser.off_screen(750):
                 self.lasers.remove(laser)
             elif laser.collision(obj):
-                obj.health -= 10
+                obj.health -= self.laser_dmg
                 self.lasers.remove(laser)
 
     def cooldown(self):
@@ -51,7 +53,7 @@ class Spaceship:
             self.shoot_sound.play()
             laser = Laser(self.x-12, self.y-18, self.laser_img, self.laser_size)
             self.lasers.append(laser)
-            self.cool_down_counter = 1
+            self.cool_down_counter = 30
 
     def shoot_primary(self):
         if self.primary_cool_down_counter == 0:

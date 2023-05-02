@@ -8,10 +8,9 @@ from model.Laser import Laser
 
 class Enemy(Spaceship):
 
-    def __init__(self, x, y, choice, health=100):
-        super().__init__(x, y, health)
-
-        self.choice = choice
+    def __init__(self, x, y, rarity, wave):
+        super().__init__(x, y, health = 20, ship_img = None)
+        self.rarity = rarity
 
         self.COMMON_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_common.png"))
         self.UNCOMMON_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_uncommon.png"))
@@ -34,15 +33,29 @@ class Enemy(Spaceship):
         self.SMALL_LASER = (64, 64)
         self.LARGE_LASER = (32, 256)
 
+        # Health
+        self.COMMON_HEALTH = 100 * (1 + (0.1 * wave))
+        self.UNCOMMON_HEALTH = 150 * (1 + (0.1 * wave))
+        self.RARE_HEALTH = 200 * (1 + (0.1 * wave))
+        self.EPIC_HEALTH = 250 * (1 + (0.1 * wave))
+        self.LEGENDARY_HEALTH = 400 * (1 + (0.1 * wave))
+
+        # Damage
+        self.COMMON_DMG = 10
+        self.UNCOMMON_DMG = 15
+        self.RARE_DMG = 20
+        self.EPIC_DMG = 25
+        self.LEGENDARY_DMG = 40
+
         self.RARITY_MAP = {
-            "common": (self.COMMON_SPACE_SHIP, self.COMMON_LASER, self.SMALL_LASER),
-            "uncommon": (self.UNCOMMON_SPACE_SHIP, self.UNCOMMON_LASER, self.SMALL_LASER),
-            "rare": (self.RARE_SPACE_SHIP, self.RARE_LASER, self.SMALL_LASER),
-            "epic": (self.EPIC_SPACE_SHIP, self.EPIC_LASER, self.LARGE_LASER),
-            "legendary": (self.LEGENDARY_SPACE_SHIP, self.LEGENDARY_LASER, self.LARGE_LASER)
+            "common": (self.COMMON_SPACE_SHIP, self.COMMON_LASER, self.SMALL_LASER, self.COMMON_HEALTH, self.COMMON_DMG),
+            "uncommon": (self.UNCOMMON_SPACE_SHIP, self.UNCOMMON_LASER, self.SMALL_LASER, self.UNCOMMON_HEALTH, self.UNCOMMON_DMG),
+            "rare": (self.RARE_SPACE_SHIP, self.RARE_LASER, self.SMALL_LASER, self.RARE_HEALTH, self.RARE_DMG),
+            "epic": (self.EPIC_SPACE_SHIP, self.EPIC_LASER, self.LARGE_LASER, self.EPIC_HEALTH, self.EPIC_DMG),
+            "legendary": (self.LEGENDARY_SPACE_SHIP, self.LEGENDARY_LASER, self.LARGE_LASER, self.LEGENDARY_HEALTH, self.LEGENDARY_DMG)
         }
 
-        self.ship_img, self.laser_img, self.laser_size = self.RARITY_MAP[self.choice]
+        self.ship_img, self.laser_img, self.laser_size, self.health, self.laser_dmg = self.RARITY_MAP[self.rarity]
         self.mask = pygame.mask.from_surface(self.ship_img)
 
 

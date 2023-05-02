@@ -31,6 +31,9 @@ class GameController:
         self.player = Player(300, 680)
         self.player.set_game_state(self.game_state)
         self.player.set_player_ship()
+        self.player.set_player_primary()
+        self.player.set_player_secondary()
+        self.player.set_player_thruster()
 
         self.mainMenuView = MainMenuView()
         self.mainMenuView.set_game_state(self.game_state)
@@ -137,7 +140,7 @@ class GameController:
             self.game_state.wave_length += 5
             for i in range(self.game_state.wave_length):
                 choice = random.choice(["common", "uncommon", "rare", "epic", "legendary"])
-                enemy = Enemy(random.randrange(50, 750 - 100), random.randrange(-1500, -10), choice)
+                enemy = Enemy(random.randrange(50, 750 - 100), random.randrange(-1500, -10), choice, self.game_state.level)
                 # Check the distance between each existing enemy and the new enemy being created
                 is_valid_position = True
                 for existing_enemy in self.game_state.enemies:

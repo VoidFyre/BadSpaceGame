@@ -64,7 +64,10 @@ class MainMenuView:
 
     def ship_selector_callback(self, selected_value, ship_selector):
         self.game_state.player_current_ship = selected_value[0][0]
-
+        self.game_state.player_current_primary = selected_value[0][0]
+        self.game_state.player_current_secondary = selected_value[0][0]
+        self.game_state.player_current_thruster = selected_value[0][0]
+        
     def music_toggle_callback(self, value):
         self.game_state.enable_music(value)
 
