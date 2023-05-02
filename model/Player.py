@@ -6,7 +6,7 @@ from model.Spaceship import Spaceship
 
 
 class Player(Spaceship):
-    def __init__(self, x, y, health=100):
+    def __init__(self, x, y, health=20):
         super().__init__(x, y, health)
 
         # Images

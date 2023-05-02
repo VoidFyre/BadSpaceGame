@@ -38,14 +38,19 @@ class GameOverMenuView:
     def restart_callback(self):
         # Do something when the play button is clicked
         # self.game_state.pause = False
+        self.game_state.current_menu_button = "Restart"
+
+        self.game_state.lost = False
         self.game_state.playing = True
 
+        print(self.game_state.current_menu_button , self.game_state.lost)
 
     def main_menu_callback(self):
         # Do something when the play button is clicked
-        # self.game_state.pause = False
-        # self.game_state.playing = False
-        self.game_state.reset_state()
+
+        self.game_state.current_menu_button = "Main Menu"
+        self.game_state.lost = False
+        self.game_state.playing = True
 
     def _create_main_menu_theme(self):
         theme = pygame_menu.themes.THEME_DARK.copy()
@@ -109,7 +114,7 @@ class GameOverMenuView:
 
     def run(self):
         # Check if playing is already True
-        self.main_menu.mainloop(self.game_state.window, self.main_background, disable_loop= self.game_state.game_over,
+        self.main_menu.mainloop(self.game_state.window, self.main_background, disable_loop = self.game_state.pause and not self.game_state.playing,
                                 fps_limit=self.FPS)
         # Flip surface
         pygame.display.flip()

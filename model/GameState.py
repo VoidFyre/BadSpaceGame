@@ -11,7 +11,7 @@ class GameState:
 
         self.FPS = 60
         self.level = 0
-        self.lives = 5
+        self.lives = 1
         self.main_font = pygame.font.SysFont("comicsans", 50)
         self.lost_font = pygame.font.SysFont("comicsans", 60)
 
@@ -40,6 +40,8 @@ class GameState:
         self.BLACK, self.WHITE = (0, 0, 0), (255, 255, 255)
 
         self.clock = pygame.time.Clock()
+
+        self.current_menu_button = None
 
         # Background
         self.BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "space_background_9.png")).convert_alpha(), (self.DISPLAY_W, self.DISPLAY_H))
@@ -74,3 +76,28 @@ class GameState:
 
     def reset_keys(self):
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESCAPE_KEY, self.SPACE_KEY = False, False, False, False, False, False
+
+
+    def game_reset(self, width=700, height=500):
+
+        self.FPS = 60
+        self.level = 0
+        self.lives = 1
+        self.main_font = pygame.font.SysFont("comicsans", 50)
+        self.lost_font = pygame.font.SysFont("comicsans", 60)
+
+        self.enemies = []
+        self.wave_length = 5
+        self.enemy_vel = 1
+
+        self.player_vel = 5
+        self.laser_vel = 5
+
+        self.lost = False
+        self.lost_count = 0
+
+        self.running, self.playing, self.game_over, self.pause = True, True, False, False
+
+        self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESCAPE_KEY, self.SPACE_KEY = False, False, False, False, False, False
+
+        self.current_menu_button = None

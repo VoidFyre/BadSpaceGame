@@ -41,6 +41,8 @@ class MainMenuView:
 
     def play_button_callback(self):
         # Do something when the play button is clicked
+        self.game_state.current_menu_button = "Play"
+
         self.button_sound.play()
         self.game_state.playing = True
 

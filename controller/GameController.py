@@ -1,11 +1,15 @@
 import pygame
 import random
 import os
+
+from model.GameState import GameState
+
 from model.Enemy import Enemy
 from model.Player import Player
 
 from view.MainMenuView import MainMenuView
 from view.PauseMenuView import PauseMenuView
+from view.GameOverMenuView import GameOverMenuView
 
 from view.MovingBackgroundView import MovingBackgroundView
 
@@ -17,12 +21,11 @@ def collide(obj1, obj2):
 
 
 class GameController:
-    def __init__(self, game_state, model, view):
-        self.death = pygame.mixer.Sound(os.path.join("assets", "sounds/death.ogg"))
+    def __init__(self, width, height):
 
-        self.model = model
-        self.view = view
-        self.game_state = game_state
+        self.game_state = GameState(width, height)
+
+        self.death = pygame.mixer.Sound(os.path.join("assets", "sounds/death.ogg"))
 
         self.player = Player(300, 680)
 
@@ -35,8 +38,30 @@ class GameController:
         self.movingBackgroundView = MovingBackgroundView()
         self.movingBackgroundView.set_game_state(self.game_state)
 
+        self.gameOverMenuView = GameOverMenuView()
+        self.gameOverMenuView.set_game_state(self.game_state)
+
         self.scroll = 0
 
+    def reset_game_controller_by_restart(self, width=750, height=750):
+
+        self.game_state.game_reset()
+
+        self.player = Player(300, 680)
+
+        #self.mainMenuView = MainMenuView()
+        self.mainMenuView.set_game_state(self.game_state)
+
+        #self.pauseMenuView = PauseMenuView()
+        self.pauseMenuView.set_game_state(self.game_state)
+
+        #self.movingBackgroundView = MovingBackgroundView()
+        self.movingBackgroundView.set_game_state(self.game_state)
+
+        #self.gameOverMenuView = GameOverMenuView()
+        self.gameOverMenuView.set_game_state(self.game_state)
+
+        self.scroll = 0
     def check_key_pressed(self):
         keys = pygame.key.get_pressed()
         mouse = pygame.mouse.get_pressed()
@@ -154,11 +179,23 @@ class GameController:
 
         while self.game_state.running:
 
+            while self.game_state.lost:
+                self.gameOverMenuView.run()
+
+                if self.game_state.current_menu_button == "Restart":
+                    self.reset_game_controller_by_restart()
+
+                self.reset_game_controller_by_restart()
+
             while self.game_state.playing is False and self.game_state.pause is False:
                 self.mainMenuView.run()
+                if self.game_state.current_menu_button == "Play":
+                    self.reset_game_controller_by_restart()
 
             while self.game_state.playing is False and self.game_state.pause is True:
                 self.pauseMenuView.run()
+                if self.game_state.current_menu_button == "Restart":
+                    self.reset_game_controller_by_restart()
 
             while self.game_state.playing:
 

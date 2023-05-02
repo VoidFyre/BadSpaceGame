@@ -32,16 +32,24 @@ class PauseMenuView:
         #self.widget_colors = self._create_widget_colors(theme=widget_colors_theme)
 
         # Add buttons to main menu
-        self.main_menu.add.button('Restart', self.resume_callback, align=pygame_menu.locals.ALIGN_LEFT)
+        self.main_menu.add.button('Restart', self.restart_callback, align=pygame_menu.locals.ALIGN_LEFT)
         self.main_menu.add.button('Resume', self.resume_callback, align=pygame_menu.locals.ALIGN_LEFT)
         self.main_menu.add.button('Main Menu', self.main_menu_callback, align=pygame_menu.locals.ALIGN_LEFT)
         self.main_menu.add.button('Quit', pygame_menu.events.EXIT, align=pygame_menu.locals.ALIGN_LEFT)
 
-    def resume_callback(self):
+    def restart_callback(self):
         # Do something when the play button is clicked
+        self.game_state.current_pause_menu_button = "Restart"
+
         self.game_state.pause = False
         self.game_state.playing = True
 
+    def resume_callback(self):
+        # Do something when the play button is clicked
+        self.game_state.current_pause_menu_button = "resume"
+
+        self.game_state.pause = False
+        self.game_state.playing = True
 
     def main_menu_callback(self):
         # Do something when the play button is clicked
