@@ -115,7 +115,7 @@ class MainMenuView:
         #     align = pygame_menu.locals.ALIGN_LEFT
         # )
 
-        settings_menu.add.button('Play', self.play_button_callback, align=pygame_menu.locals.ALIGN_LEFT)
+        #settings_menu.add.button('Play', self.play_button_callback, align=pygame_menu.locals.ALIGN_LEFT)
         settings_menu.add.button('Back', pygame_menu.events.BACK, align=pygame_menu.locals.ALIGN_LEFT)
         settings_menu.widget_font = pygame_menu.font.FONT_MUNRO
 
