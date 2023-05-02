@@ -24,10 +24,30 @@ class Player(Spaceship):
         ship_mask = pygame.mask.from_surface(self.ship_img)
 
         self.mask = ship_mask
-        
 
         self.max_health = health
 
+    def set_player_ship(self):
+        if self.game_state.player_current_ship == "common":
+            self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_common.png"))
+            ship_mask = pygame.mask.from_surface(self.ship_img)
+            self.mask = ship_mask
+        if self.game_state.player_current_ship == "uncommon":
+            self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_uncommon.png"))
+            ship_mask = pygame.mask.from_surface(self.ship_img)
+            self.mask = ship_mask
+        if self.game_state.player_current_ship == "rare":
+            self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_rare.png"))
+            ship_mask = pygame.mask.from_surface(self.ship_img)
+            self.mask = ship_mask
+        if self.game_state.player_current_ship == "epic":
+            self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_epic.png"))
+            ship_mask = pygame.mask.from_surface(self.ship_img)
+            self.mask = ship_mask
+        if self.game_state.player_current_ship == "legendary":
+            self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_legendary.png"))
+            ship_mask = pygame.mask.from_surface(self.ship_img)
+            self.mask = ship_mask
 
     def set_game_state(self, game_state):
         self.game_state = game_state

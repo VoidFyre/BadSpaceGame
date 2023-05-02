@@ -30,6 +30,7 @@ class GameController:
 
         self.player = Player(300, 680)
         self.player.set_game_state(self.game_state)
+        self.player.set_player_ship()
 
         self.mainMenuView = MainMenuView()
         self.mainMenuView.set_game_state(self.game_state)
@@ -51,6 +52,7 @@ class GameController:
 
         self.player = Player(300, 680)
         self.player.set_game_state(self.game_state)
+        self.player.set_player_ship()
 
         #self.mainMenuView = MainMenuView()
         self.mainMenuView.set_game_state(self.game_state)
@@ -218,9 +220,8 @@ class GameController:
         pygame.display.update()
 
     def run_game_loop(self):
-        pygame.mixer.music.load(os.path.join("assets", "sounds/background_music.ogg"))
-        pygame.mixer.music.set_volume(0.2)
-        pygame.mixer.music.play(-1)
+
+        self.game_state.enable_music()
 
         while self.game_state.running:
 

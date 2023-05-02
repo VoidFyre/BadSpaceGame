@@ -31,11 +31,12 @@ class MainMenuView:
             width=self.WINDOW_SIZE[0] * 0.7,
         )
 
-        #self.play_menu_button = self._create_play_menu_button(theme=main_menu_theme)
+        self.settings_button = self._create_settings_button(theme=main_menu_theme)
         self.widget_colors = self._create_widget_colors(theme=widget_colors_theme)
 
         # Add buttons to main menu
         self.main_menu.add.button('Play',  self.play_button_callback, align=pygame_menu.locals.ALIGN_LEFT)
+        self.main_menu.add.button('Settings', self.settings_button, align=pygame_menu.locals.ALIGN_LEFT)
         self.main_menu.add.button('Credit', self.widget_colors, align=pygame_menu.locals.ALIGN_LEFT)
         self.main_menu.add.button('Quit', pygame_menu.events.EXIT, align=pygame_menu.locals.ALIGN_LEFT)
 
@@ -61,19 +62,64 @@ class MainMenuView:
         theme.selection_effect = pygame_menu.widgets.RightArrowSelection()
         return theme
 
-    def _create_play_menu_button(self, theme):
-        menu = pygame_menu.Menu(
-            height=self.WINDOW_SIZE[1] * 0.6,
-            onclose=pygame_menu.events.EXIT,
-            theme=theme,
-            title='Menu with background image',
-            width=self.WINDOW_SIZE[0] * 0.7
+    def ship_selector_callback(self, selected_value, ship_selector):
+        self.game_state.player_current_ship = selected_value[0][0]
 
+    def music_toggle_callback(self, value):
+        self.game_state.enable_music(value)
+
+
+    def _create_settings_button(self, theme) :
+
+        settings_menu = pygame_menu.Menu(
+            height=self.WINDOW_SIZE[1] * 0.6,
+            theme=theme,
+            title='Settings',
+            width=self.WINDOW_SIZE[0] * 0.7
         )
-        menu.add.button('Back', pygame_menu.events.BACK)
-        menu.widget_font = pygame_menu.font.FONT_MUNRO
-        menu.set_onupdate(self.play_button_callback)
-        return menu
+
+        # Create switch
+        # Create toggle switch
+        settings_menu.add.toggle_switch('Music', True, toggleswitch_id='Music',
+                                        state_text=('Off', 'On'), align=pygame_menu.locals.ALIGN_LEFT,
+                                        onchange=self.music_toggle_callback)
+
+        # Selectable items
+        items = [('common', 'COMMON'),
+                 ('uncommon', 'UNCOMMON'),
+                 ('rare', 'RARE'),
+                 ('epic', 'EPIC'),
+                 ('legendary', 'LEGENDARY')]
+
+        # Create selector with 3 difficulty options
+        settings_menu.add.selector(
+            'Select Ship\t',
+            items,
+            selector_id='select_ship',
+            default=0,
+            align=pygame_menu.locals.ALIGN_LEFT,
+            onchange = self.ship_selector_callback
+        )
+
+        # settings_menu.add.dropselect_multiple(
+        #     title='Player Ship',
+        #     items=[('Common', (0, 0, 0)),
+        #            ('Uncommon', (0, 0, 255)),
+        #            ('Rare', (0, 255, 255)),
+        #            ('Epic', (255, 0, 255)),
+        #            ('Legendary', (0, 255, 0))],
+        #     dropselect_multiple_id='pickcolors',
+        #     max_selected=1,
+        #     open_middle=True,
+        #     selection_box_height=5,  # How many options show if opened
+        #     align = pygame_menu.locals.ALIGN_LEFT
+        # )
+
+        settings_menu.add.button('Play', self.play_button_callback, align=pygame_menu.locals.ALIGN_LEFT)
+        settings_menu.add.button('Back', pygame_menu.events.BACK, align=pygame_menu.locals.ALIGN_LEFT)
+        settings_menu.widget_font = pygame_menu.font.FONT_MUNRO
+
+        return settings_menu
 
     def _create_widget_colors_theme(self):
         theme = pygame_menu.themes.THEME_DARK.copy()

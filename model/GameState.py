@@ -47,6 +47,8 @@ class GameState:
 
         self.current_menu_button = None
 
+        self.player_current_ship = "common"
+
         # Background
         self.BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "space_background_9.png")).convert_alpha(), (self.DISPLAY_W, self.DISPLAY_H))
 
@@ -94,3 +96,11 @@ class GameState:
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESCAPE_KEY, self.SPACE_KEY = False, False, False, False, False, False
 
         self.current_menu_button = None
+
+    def enable_music(self, enable=True):
+        if enable:
+            pygame.mixer.music.load(os.path.join("assets", "sounds/background_music.ogg"))
+            pygame.mixer.music.set_volume(0.2)
+            pygame.mixer.music.play(-1)
+        else:
+            pygame.mixer.music.stop()
