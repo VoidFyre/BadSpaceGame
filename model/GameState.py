@@ -11,8 +11,8 @@ class GameState:
 
         self.FPS = 60
         self.level = 0
-        self.main_font = pygame.font.SysFont("comicsans", 50)
-        self.lost_font = pygame.font.SysFont("comicsans", 60)
+        #self.main_font = pygame.font.SysFont("comicsans", 50)
+        #self.lost_font = pygame.font.SysFont("comicsans", 60)
 
         self.enemies = []
         self.wave_length = 5
@@ -24,6 +24,9 @@ class GameState:
         self.lost = False
         self.lost_count = 0
 
+        self.score_counter = 0
+        self.total_killing = 0
+
         self.running, self.playing, self.game_over, self.pause = True, False, False, False
 
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESCAPE_KEY, self.SPACE_KEY = False, False, False, False, False, False
@@ -34,7 +37,9 @@ class GameState:
 
         self.window = pygame.display.set_mode(((self.DISPLAY_W,self.DISPLAY_H)))
 
-        self.font_name = pygame.font.get_default_font()
+        #self.font_name = pygame.font.get_default_font()
+
+        self.main_font = pygame.font.Font(os.path.join("assets", "fonts/munro.ttf"), 30)
 
         self.BLACK, self.WHITE = (0, 0, 0), (255, 255, 255)
 
@@ -69,10 +74,7 @@ class GameState:
 
     def game_reset(self, width=700, height=500):
 
-        self.FPS = 60
         self.level = 0
-        self.main_font = pygame.font.SysFont("comicsans", 50)
-        self.lost_font = pygame.font.SysFont("comicsans", 60)
 
         self.enemies = []
         self.wave_length = 5
@@ -83,6 +85,9 @@ class GameState:
 
         self.lost = False
         self.lost_count = 0
+
+        self.score_counter = 0
+        self.total_killing = 0
 
         self.running, self.playing, self.game_over, self.pause = True, True, False, False
 

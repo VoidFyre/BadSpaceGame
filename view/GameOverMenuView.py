@@ -24,7 +24,7 @@ class GameOverMenuView:
             height=self.WINDOW_SIZE[1] * 0.6,
             onclose=pygame_menu.events.EXIT,  # User press ESC button
             theme=main_menu_theme,
-            title='Game Over Menu',
+            title='Game Over',
             width=self.WINDOW_SIZE[0] * 0.7,
         )
 
@@ -53,7 +53,7 @@ class GameOverMenuView:
 
     def _create_main_menu_theme(self):
         theme = pygame_menu.themes.THEME_DARK.copy()
-        theme.set_background_color_opacity(0.5)  # 50% opacity
+        theme.set_background_color_opacity(0.2)  # 50% opacity
         theme.background_color = self.menu_background_image
         theme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE
         theme.widget_alignment = pygame_menu.locals.ALIGN_CENTER
@@ -86,7 +86,7 @@ class GameOverMenuView:
         theme.widget_padding = 0
         theme.widget_selection_effect.margin_xy(10, 5)
         theme.widget_font_size = 20
-        theme.set_background_color_opacity(0.5)  # 50% opacity
+        theme.set_background_color_opacity(0.2)  # 50% opacity
         theme.background_color = self.main_background_image
         theme.widget_font = pygame_menu.font.FONT_MUNRO
         return theme

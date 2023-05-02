@@ -11,6 +11,8 @@ class Player(Spaceship):
 
         # Images
 
+        self.game_state = None
+
         self.ship_img  = pygame.image.load(os.path.join("assets", "component/ship/ship_common.png"))
         self.primary_img = pygame.image.load(os.path.join("assets", "component/primary/weapon/primary_common.png"))
         self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_common.png"))
@@ -26,6 +28,10 @@ class Player(Spaceship):
 
         self.max_health = health
 
+
+    def set_game_state(self, game_state):
+        self.game_state = game_state
+
     def move_lasers(self, vel, objs):
         self.cooldown()
         for laser in self.lasers:
@@ -36,6 +42,20 @@ class Player(Spaceship):
                 for obj in objs:
                     if laser.collision(obj):
                         objs.remove(obj)
+
+                        self.game_state.total_killing += 1
+
+                        if obj.choice == "common":
+                            self.game_state.score_counter += 1
+                        if obj.choice == "uncommon":
+                            self.game_state.score_counter += 2
+                        if obj.choice == "rare":
+                            self.game_state.score_counter += 3
+                        if obj.choice == "epic":
+                            self.game_state.score_counter += 4
+                        if obj.choice == "legendary":
+                            self.game_state.score_counter += 5
+
                         if laser in self.lasers:
                             self.lasers.remove(laser)
 

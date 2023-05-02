@@ -11,6 +11,8 @@ class Enemy(Spaceship):
     def __init__(self, x, y, choice, health=100):
         super().__init__(x, y, health)
 
+        self.choice = choice
+
         self.COMMON_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_common.png"))
         self.UNCOMMON_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_uncommon.png"))
         self.RARE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_rare.png"))
@@ -40,8 +42,9 @@ class Enemy(Spaceship):
             "legendary": (self.LEGENDARY_SPACE_SHIP, self.LEGENDARY_LASER, self.LARGE_LASER)
         }
 
-        self.ship_img, self.laser_img, self.laser_size = self.RARITY_MAP[choice]
+        self.ship_img, self.laser_img, self.laser_size = self.RARITY_MAP[self.choice]
         self.mask = pygame.mask.from_surface(self.ship_img)
+
 
     def move(self, vel):
         self.y += vel

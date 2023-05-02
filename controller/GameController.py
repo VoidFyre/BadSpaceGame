@@ -28,6 +28,7 @@ class GameController:
         self.death = pygame.mixer.Sound(os.path.join("assets", "sounds/death.ogg"))
 
         self.player = Player(300, 680)
+        self.player.set_game_state(self.game_state)
 
         self.mainMenuView = MainMenuView()
         self.mainMenuView.set_game_state(self.game_state)
@@ -48,6 +49,7 @@ class GameController:
         self.game_state.game_reset()
 
         self.player = Player(300, 680)
+        self.player.set_game_state(self.game_state)
 
         #self.mainMenuView = MainMenuView()
         self.mainMenuView.set_game_state(self.game_state)
@@ -90,7 +92,7 @@ class GameController:
     def draw(self):
         self.view.draw(self.model)
 
-    def generate_random_enemy(self):
+    def random_enemy_shooting(self):
         for enemy in self.game_state.enemies[:]:
             enemy.move(self.game_state.enemy_vel)
             enemy.move_lasers(self.game_state.laser_vel, self.player)
@@ -101,17 +103,18 @@ class GameController:
             if collide(enemy, self.player):
                 self.player.health -= 10
                 self.game_state.enemies.remove(enemy)
+
             elif enemy.y + enemy.get_height() > 750:
-                #self.game_state.lives -= 1
                 self.game_state.enemies.remove(enemy)
 
-    def update_dashboard(self):
+    def update_game_status(self):
         # if self.game_state.lives <= 0 or self.player.health <= 0:
 
         if self.player.health <= 0:
             self.game_state.lost = True
             self.game_state.lost_count += 1
 
+    def spawn_random_enemy(self):
         if len(self.game_state.enemies) == 0:
             self.game_state.level += 1
             self.game_state.wave_length += 5
@@ -152,11 +155,33 @@ class GameController:
         self.movingBackgroundView.run()
 
         # draw text
-        #lives_label = self.game_state.main_font.render(f"Lives: {self.game_state.lives}", 1, (255, 255, 255))
         level_label = self.game_state.main_font.render(f"Level: {self.game_state.level}", 1, (255, 255, 255))
 
-        #self.game_state.window.blit(lives_label, (10, 10))
+        level_rect = level_label.get_rect()
+        # level_rect.topright = (self.game_state.DISPLAY_W - 10, 10)
+        #
+        # pygame.draw.rect(self.game_state.window, (255, 255, 255), level_rect, 1)
+        #self.game_state.window.blit(level_label, level_rect)
         self.game_state.window.blit(level_label, (self.game_state.DISPLAY_W - level_label.get_width() - 10, 10))
+
+        # Draw the kill count and score on the top-left corner of the screen
+        kill_label = self.game_state.main_font.render(f"Kills: {self.game_state.total_killing}", 1, (255, 255, 255))
+        score_label = self.game_state.main_font.render(f"Score: {self.game_state.score_counter}", 1, (255, 255, 255))
+
+        # Get the width and height of the labels
+        # kill_label_width, kill_label_height = kill_label.get_size()
+        # score_label_width, score_label_height = score_label.get_size()
+
+        # Draw rectangles around the labels
+        # kill_label_rect = pygame.Rect(10, 10, kill_label_width + 10, kill_label_height + 10)
+        # score_label_rect = pygame.Rect(120, 10, score_label_width + 10, score_label_height + 10)
+
+        # pygame.draw.rect(self.game_state.window, (255, 255, 255), kill_label_rect, 1)
+        # pygame.draw.rect(self.game_state.window, (255, 255, 255), score_label_rect, 1)
+
+        # Blit the labels onto the screen
+        self.game_state.window.blit(kill_label, (15, 15))
+        self.game_state.window.blit(score_label, (125, 15))
 
         for enemy in self.game_state.enemies:
             enemy.draw(self.game_state.window)
@@ -167,10 +192,6 @@ class GameController:
         self.game_state.window.blit(self.player.primary_img, (self.player.x, self.player.y))
         self.game_state.window.blit(self.player.secondary_img, (self.player.x, self.player.y))
         self.game_state.window.blit(self.player.thruster_img, (self.player.x, self.player.y))
-
-        if self.game_state.lost:
-            lost_label = self.game_state.lost_font.render("You Lost!!", 1, (255, 255, 255))
-            self.game_state.window.blit(lost_label, (750 / 2 - lost_label.get_width() / 2, 350))
 
         pygame.display.update()
 
@@ -202,15 +223,17 @@ class GameController:
 
                 self.game_state.clock.tick(self.game_state.FPS)
 
-                self.redraw_window()
-
                 self.check_key_pressed()
 
-                self.generate_random_enemy()
+                self.update_game_status()
+
+                self.spawn_random_enemy()
+
+                self.random_enemy_shooting()
 
                 self.player.move_lasers(-self.game_state.laser_vel, self.game_state.enemies)
 
-                self.update_dashboard()
+                self.redraw_window()
 
                 if self.game_state.lost:
                     self.game_state.playing = False
