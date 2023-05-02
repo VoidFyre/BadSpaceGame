@@ -181,13 +181,10 @@ class GameController:
 
         while self.game_state.running:
 
-            # while self.game_state.lost:
-            #     self.gameOverMenuView.run()
-            #
-            #     if self.game_state.current_menu_button == "Restart":
-            #         self.reset_game_controller_by_restart()
-            #
-            #     self.reset_game_controller_by_restart()
+            while self.game_state.lost is True:
+                self.gameOverMenuView.run()
+                if self.game_state.current_menu_button == "Restart":
+                    self.reset_game_controller_by_restart()
 
             while self.game_state.playing is False and self.game_state.pause is False:
                 self.mainMenuView.run()
