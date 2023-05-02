@@ -102,11 +102,13 @@ class GameController:
                 self.player.health -= 10
                 self.game_state.enemies.remove(enemy)
             elif enemy.y + enemy.get_height() > 750:
-                self.game_state.lives -= 1
+                #self.game_state.lives -= 1
                 self.game_state.enemies.remove(enemy)
 
     def update_dashboard(self):
-        if self.game_state.lives <= 0 or self.player.health <= 0:
+        # if self.game_state.lives <= 0 or self.player.health <= 0:
+
+        if self.player.health <= 0:
             self.game_state.lost = True
             self.game_state.lost_count += 1
 
@@ -150,10 +152,10 @@ class GameController:
         self.movingBackgroundView.run()
 
         # draw text
-        lives_label = self.game_state.main_font.render(f"Lives: {self.game_state.lives}", 1, (255, 255, 255))
+        #lives_label = self.game_state.main_font.render(f"Lives: {self.game_state.lives}", 1, (255, 255, 255))
         level_label = self.game_state.main_font.render(f"Level: {self.game_state.level}", 1, (255, 255, 255))
 
-        self.game_state.window.blit(lives_label, (10, 10))
+        #self.game_state.window.blit(lives_label, (10, 10))
         self.game_state.window.blit(level_label, (self.game_state.DISPLAY_W - level_label.get_width() - 10, 10))
 
         for enemy in self.game_state.enemies:

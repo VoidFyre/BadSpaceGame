@@ -11,7 +11,6 @@ class GameState:
 
         self.FPS = 60
         self.level = 0
-        self.lives = 1
         self.main_font = pygame.font.SysFont("comicsans", 50)
         self.lost_font = pygame.font.SysFont("comicsans", 60)
 
@@ -46,16 +45,6 @@ class GameState:
         # Background
         self.BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "space_background_9.png")).convert_alpha(), (self.DISPLAY_W, self.DISPLAY_H))
 
-    def draw_text(self, text, size, x, y):
-        font = pygame.font.Font(self.font_name, size)
-
-        text_surface = font.render(text, True, (255, 20, 123))
-        shadow = font.render(text, True, (0, 0, 0))
-        text_rect = text_surface.get_rect(center=(x, y))
-        shadow_rect = text_surface.get_rect(center=(x + 2, y + 2))
-        self.display.blit(shadow, shadow_rect)
-        self.display.blit(text_surface, text_rect)
-
     def check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -82,7 +71,6 @@ class GameState:
 
         self.FPS = 60
         self.level = 0
-        self.lives = 1
         self.main_font = pygame.font.SysFont("comicsans", 50)
         self.lost_font = pygame.font.SysFont("comicsans", 60)
 

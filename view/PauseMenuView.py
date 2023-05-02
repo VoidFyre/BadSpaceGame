@@ -39,14 +39,14 @@ class PauseMenuView:
 
     def restart_callback(self):
         # Do something when the play button is clicked
-        self.game_state.current_pause_menu_button = "Restart"
+        self.game_state.current_menu_button = "Restart"
 
         self.game_state.pause = False
         self.game_state.playing = True
 
     def resume_callback(self):
         # Do something when the play button is clicked
-        self.game_state.current_pause_menu_button = "resume"
+        self.game_state.current_menu_button = "resume"
 
         self.game_state.pause = False
         self.game_state.playing = True
