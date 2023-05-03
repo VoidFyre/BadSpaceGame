@@ -39,18 +39,18 @@ class Enemy(Spaceship):
         self.LARGE_LASER = (28, 100)
 
         # Health
-        self.COMMON_HEALTH = 100 * (1 + (0.1 * wave))
-        self.UNCOMMON_HEALTH = 150 * (1 + (0.1 * wave))
-        self.RARE_HEALTH = 200 * (1 + (0.1 * wave))
-        self.EPIC_HEALTH = 250 * (1 + (0.1 * wave))
-        self.LEGENDARY_HEALTH = 400 * (1 + (0.1 * wave))
+        self.COMMON_HEALTH = 100 * (1 + (0.2 * wave))
+        self.UNCOMMON_HEALTH = 150 * (1 + (0.2 * wave))
+        self.RARE_HEALTH = 200 * (1 + (0.2 * wave))
+        self.EPIC_HEALTH = 250 * (1 + (0.2 * wave))
+        self.LEGENDARY_HEALTH = 400 * (1 + (0.2 * wave))
 
         # Damage
-        self.COMMON_DMG = 10
-        self.UNCOMMON_DMG = 15
-        self.RARE_DMG = 20
-        self.EPIC_DMG = 25
-        self.LEGENDARY_DMG = 40
+        self.COMMON_DMG = 10 * (1 + (0.2 * wave))
+        self.UNCOMMON_DMG = 15 * (1 + (0.2 * wave))
+        self.RARE_DMG = 20 * (1 + (0.2 * wave))
+        self.EPIC_DMG = 25 * (1 + (0.2 * wave))
+        self.LEGENDARY_DMG = 40 * (1 + (0.2 * wave))
 
         self.RARITY_MAP = {
             "common": (self.COMMON_SPACE_SHIP, self.COMMON_LASER, self.SMALL_LASER, self.COMMON_HEALTH, self.COMMON_DMG),

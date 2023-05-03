@@ -43,29 +43,27 @@ class Upgrade:
     # Function to summon an orb on a ship that has been destroyed
     # The player has a 40% chance of getting nothing, a 30% chance of getting uncommon, a 15% chance of getting rare,
     # a 10% chance of getting epic, and a 5% chance of getting a legendary item.
-    def summon_random_orb(self):
+    def summon_random_orb(self, rarity):
         rand_orb = random.randint(1, 100)
         reward_type = 'common' #Set reward type to the basic common
 
         #Uncommon Orb
-        if rand_orb >0 and rand_orb <= 40:
-            return reward_type
-        elif rand_orb > 40 and rand_orb <= 70 :
+        if rand_orb <= 20 and rarity == "uncommon":
             reward_type = 'uncommon'
             return reward_type
         
         #Rare orb
-        elif rand_orb > 70 and rand_orb <= 85:
+        elif rand_orb <= 20 and rarity == "rare":
             reward_type = 'rare'
             return reward_type
 
         #Epic orb
-        elif rand_orb > 85 and rand_orb <= 95 :
+        elif rand_orb <= 20 and rarity == "epic":
             reward_type = 'epic'
             return reward_type
 
         #Legendary orb
-        elif rand_orb > 95 and rand_orb <= 100:
+        elif rand_orb <= 20 and rarity == "legendary":
             reward_type = 'legendary'
             return reward_type
     

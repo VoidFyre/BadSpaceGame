@@ -161,12 +161,19 @@ class GameController:
             self.game_state.level += 1
             self.game_state.wave_length += 5
             for i in range(self.game_state.wave_length):
-                choice = random.choice(["common", "uncommon", "rare", "epic", "legendary"])
+                if self.game_state.level < 5:
+                    choice = random.choice(["common", "uncommon"])
+                if self.game_state.level >= 5 and self.game_state.level < 10:
+                    choice = random.choice(["common", "uncommon", "rare"])
+                if self.game_state.level >= 10 and self.game_state.level < 15:
+                    choice = random.choice(["common", "uncommon", "rare", "epic"])
+                if self.game_state.level >= 15:
+                    choice = random.choice(["common", "uncommon", "rare", "epic", "legendary"])
                 enemy = Enemy(random.randrange(50, 750 - 100), random.randrange(-1500, -10), choice, self.game_state.level)
                 # Check the distance between each existing enemy and the new enemy being created
                 is_valid_position = True
                 for existing_enemy in self.game_state.enemies:
-                    if self.get_distance(existing_enemy.x, existing_enemy.y, enemy.x, enemy.y) < 100:
+                    if self.get_distance(existing_enemy.x, existing_enemy.y, enemy.x, enemy.y) < 50:
                         is_valid_position = False
                         break
                 # If the position is valid, add the enemy to the game state
@@ -239,7 +246,7 @@ class GameController:
                 newUpgrade = Upgrade()
                 newUpgrade.x = x
                 newUpgrade.y = y
-                newUpgrade.orb_type = newUpgrade.summon_random_orb()
+                newUpgrade.orb_type = newUpgrade.summon_random_orb(enemy.rarity)
 
                 self.game_state.upgrades.append(newUpgrade)
 
