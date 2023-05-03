@@ -232,7 +232,7 @@ class GameController:
     def enemy_check(self):
         for enemy in self.game_state.enemies:
             if enemy.health <= 0:
-                #self.death.sound.play()
+                self.death.play()
                 x = enemy.x
                 y = enemy.y
 

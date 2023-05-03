@@ -22,7 +22,7 @@ class Explosion:
         self.mask = pygame.mask.from_surface(self.explosion_image)
 
         # Load the sound file
-        self.sound = pygame.mixer.Sound(os.path.join("assets", "sounds/sounds_powerup.wav"))
+        self.sound = pygame.mixer.Sound(os.path.join("assets", "sounds/explosion.wav"))
 
     def move(self, vel):
         self.y += vel

@@ -13,7 +13,7 @@ class HealthAid:
         self.mask = pygame.mask.from_surface(self.ship_img)
 
         # Load the sound file
-        self.sound = pygame.mixer.Sound(os.path.join("assets", "sounds/upgrade.ogg"))
+        self.sound = pygame.mixer.Sound(os.path.join("assets", "sounds/health_pack.wav"))
 
     def move(self, vel):
         self.y += vel
