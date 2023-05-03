@@ -160,25 +160,7 @@ class Player(Spaceship):
                 for obj in objs:
                     if primary_proj.collision(obj):
                         obj.health -= self.primary_damage
-                        if obj.health <= 0:
-                            
-                            x = obj.x
-                            y = obj.y
-
-                            objs.remove(obj)
-
-                            newUpgrade = Upgrade()
-                            newUpgrade.x = x
-                            newUpgrade.y = y
-                            newUpgrade.orb_type = newUpgrade.summon_random_orb()
-
-                            self.game_state.upgrades.append(newUpgrade)
-
-                            self.track_score_and_kills(obj)
-
-                            self.create_ship_explosion(obj)
-
-                            self.primary_projectiles.remove(primary_proj)
+                        self.primary_projectiles.remove(primary_proj)
 
     def move_secondary_proj(self, vel, objs):
         self.cooldown()
@@ -189,33 +171,19 @@ class Player(Spaceship):
             else:
                 for obj in objs:
                     if secondary_proj.collision(obj):
-                        self.create_proj_explosion(obj, self.secondary_proj_explosion)
+                        explosion = self.create_proj_explosion(obj, self.secondary_proj_explosion)
                         self.secondary_projectiles.remove(secondary_proj)
+                        self.explosion_damage(explosion, objs)
 
-        for explosion in self.game_state.explosions:
-            for obj in objs:
-                if explosion.collision(obj):
-                    if explosion.type == "weapon":
-                        obj.health -= self.secondary_damage
-                    if obj.health <= 0:
-                        x = obj.x
-                        y = obj.y
+                    
+                            
+    def explosion_damage(self, explosion, objs):
+        for obj in objs:
+            if explosion.collision(obj) and explosion.collide:
+                if explosion.type == "weapon":
+                    obj.health -= self.secondary_damage
+        explosion.collide = False
 
-                        objs.remove(obj)
-
-                        newUpgrade = Upgrade()
-                        newUpgrade.x = x
-                        newUpgrade.y = y
-                        newUpgrade.orb_type = newUpgrade.summon_random_orb()
-
-                        self.game_state.upgrades.append(newUpgrade)
-
-                        self.track_score_and_kills(obj)
-
-                        self.create_ship_explosion(obj)
-
-                        if explosion in self.game_state.explosions:
-                            self.game_state.explosions.remove(explosion)
 
     def shoot_primary(self):
         if self.primary_cool_down_counter == 0:
@@ -232,19 +200,22 @@ class Player(Spaceship):
             self.secondary_cool_down_counter = 90
 
     def create_ship_explosion(self, obj):
-        explosion = Explosion(obj.get_x(), obj.get_y(), pygame.image.load(os.path.join("assets", "component/secondary/explosion/explosion_secondary_common.png")), (80, 80))
+        explosion = Explosion(obj.get_x() - 20, obj.get_y() - 20, pygame.image.load(os.path.join("assets", "component/secondary/explosion/explosion_secondary_common.png")), (80, 80))
         explosion.type = "ship"
+        explosion.collide = False
         self.game_state.explosions.append(explosion)
 
         explosion.play_sound()
 
     def create_proj_explosion(self, obj, img):
 
-        explosion = Explosion(obj.get_x(), obj.get_y(), self.secondary_proj_explosion, (300, 300))
+        explosion = Explosion(obj.get_x() - 300, obj.get_y() - 300, self.secondary_proj_explosion, (600, 600))
         explosion.type = "weapon"
+        explosion.collide = True
         self.game_state.explosions.append(explosion)
 
         explosion.play_sound()
+        return explosion
 
     def track_score_and_kills(self, obj):
         self.game_state.total_killing += 1

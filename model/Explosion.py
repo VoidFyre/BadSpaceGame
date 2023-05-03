@@ -11,6 +11,7 @@ class Explosion:
         self.x = x
         self.y = y
         self.type = "ship"
+        self.collide = True
 
         # Create a timer for enemy shooting
         self.explosion_shoot_timer = pygame.time.get_ticks()
@@ -29,10 +30,10 @@ class Explosion:
     def draw(self, window):
         
         if self.type == "ship":
-            window.blit(self.explosion_image, (self.x - 20, self.y - 20))
+            window.blit(self.explosion_image, (self.x, self.y))
         
         if self.type == "weapon":
-            window.blit(self.explosion_image, (self.x - 120, self.y - 120))
+            window.blit(self.explosion_image, (self.x, self.y))
 
     def get_width(self):
         return self.explosion_image.get_width()

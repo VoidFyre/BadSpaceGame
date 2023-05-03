@@ -109,7 +109,7 @@ class GameController:
 
             if collide(enemy, self.player):
 
-                self.player.health -= 10
+                self.player.health -= self.player.max_health/2
                 self.game_state.enemies.remove(enemy)
 
             elif enemy.y + enemy.get_height() > 750:
@@ -125,7 +125,7 @@ class GameController:
 
                 healthAid.play_sound()
 
-                self.player.health += 10
+                self.player.health += self.player.max_health / 5
 
                 if self.player.health > self.player.max_health:
                     self.player.health = self.player.max_health
@@ -152,16 +152,6 @@ class GameController:
         if self.player.health <= 0:
             self.game_state.lost = True
             self.game_state.lost_count += 1
-
-    # def spawn_random_enemy(self):
-    #     if len(self.game_state.enemies) == 0:
-    #         self.game_state.level += 1
-    #         self.game_state.wave_length += 5
-    #         for i in range(self.game_state.wave_length):
-    #             choice = random.choice(["common", "uncommon", "rare", "epic", "legendary"])
-    #             enemy = Enemy(random.randrange(50, 750 - 100), random.randrange(-1500, -10),
-    #                           choice)
-    #             self.game_state.enemies.append(enemy)
 
     def get_distance(self, x1, y1, x2, y2):
         return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
@@ -208,27 +198,11 @@ class GameController:
         # draw text
         level_label = self.game_state.main_font.render(f"Level: {self.game_state.level}", 1, (255, 255, 255))
 
-        level_rect = level_label.get_rect()
-        # level_rect.topright = (self.game_state.DISPLAY_W - 10, 10)
-        #
-        # pygame.draw.rect(self.game_state.window, (255, 255, 255), level_rect, 1)
-        #self.game_state.window.blit(level_label, level_rect)
         self.game_state.window.blit(level_label, (self.game_state.DISPLAY_W - level_label.get_width() - 10, 10))
 
         # Draw the kill count and score on the top-left corner of the screen
         kill_label = self.game_state.main_font.render(f"Kills: {self.game_state.total_killing}", 1, (255, 255, 255))
         score_label = self.game_state.main_font.render(f"Score: {self.game_state.score_counter}", 1, (255, 255, 255))
-
-        # Get the width and height of the labels
-        # kill_label_width, kill_label_height = kill_label.get_size()
-        # score_label_width, score_label_height = score_label.get_size()
-
-        # Draw rectangles around the labels
-        # kill_label_rect = pygame.Rect(10, 10, kill_label_width + 10, kill_label_height + 10)
-        # score_label_rect = pygame.Rect(120, 10, score_label_width + 10, score_label_height + 10)
-
-        # pygame.draw.rect(self.game_state.window, (255, 255, 255), kill_label_rect, 1)
-        # pygame.draw.rect(self.game_state.window, (255, 255, 255), score_label_rect, 1)
 
         # Blit the labels onto the screen
         self.game_state.window.blit(kill_label, (15, 15))
@@ -254,6 +228,25 @@ class GameController:
         for explosion in self.game_state.explosions[:]:
             if abs(explosion.explosion_shoot_timer - pygame.time.get_ticks()) >= 200:
                 self.game_state.explosions.remove(explosion)
+
+    def enemy_check(self):
+        for enemy in self.game_state.enemies:
+            if enemy.health <= 0:
+                #self.death.sound.play()
+                x = enemy.x
+                y = enemy.y
+
+                newUpgrade = Upgrade()
+                newUpgrade.x = x
+                newUpgrade.y = y
+                newUpgrade.orb_type = newUpgrade.summon_random_orb()
+
+                self.game_state.upgrades.append(newUpgrade)
+
+                self.player.track_score_and_kills(enemy)
+
+                self.player.create_ship_explosion(enemy)
+                self.game_state.enemies.remove(enemy)
 
     def run_game_loop(self):
 
@@ -303,6 +296,8 @@ class GameController:
                 self.player.move_lasers(-self.game_state.laser_vel, self.game_state.enemies)
 
                 self.redraw_window()
+
+                self.enemy_check()
 
                 self.clean_up()
 
