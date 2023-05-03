@@ -15,20 +15,18 @@ class Player(Spaceship):
 
         self.game_state = None
 
-        self.ship_img  = pygame.image.load(os.path.join("assets", "component/ship/ship_common.png"))
+        self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_common.png"))
         self.primary_img = pygame.image.load(os.path.join("assets", "component/primary/weapon/primary_common.png"))
         self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_common.png"))
         self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_common.png"))
         self.primary_proj_img = pygame.image.load(os.path.join("assets", "component/primary/projectile/projectile_primary_common.png"))
+        self.primary_proj_size = (32, 32)
         self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_common.png"))
+        self.secondary_proj_size = (32, 32)
         self.laser_img = pygame.image.load(os.path.join("assets", "component/primary/projectile/projectile_primary_common.png"))
 
         self.primary_damage = 100
         self.secondary_damage = 200
-
-        ship_mask = pygame.mask.from_surface(self.ship_img)
-
-        self.mask = ship_mask
 
         self.max_health = 100
 
@@ -39,18 +37,22 @@ class Player(Spaceship):
             self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_common.png"))
             self.max_health = 100
             self.health = 100
+
         if self.game_state.player_current_ship == "uncommon":
             self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_uncommon.png"))
             self.max_health = 150
             self.health = 150
+
         if self.game_state.player_current_ship == "rare":
             self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_rare.png"))
             self.max_health = 250
             self.health = 250
+
         if self.game_state.player_current_ship == "epic":
             self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_epic.png"))
             self.max_health = 350
             self.health = 350
+
         if self.game_state.player_current_ship == "legendary":
             self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_legendary.png"))
             self.max_health = 500
@@ -63,41 +65,55 @@ class Player(Spaceship):
         if self.game_state.player_current_primary == "common":
             self.primary_img = pygame.image.load(os.path.join("assets", "component/primary/weapon/primary_common.png"))
             self.primary_proj_img = pygame.image.load(os.path.join("assets", "component/primary/projectile/projectile_primary_common.png"))
+            self.primary_proj_size = (32, 32)
             self.primary_damage = 100
+
         if self.game_state.player_current_primary == "uncommon":
             self.primary_img = pygame.image.load(os.path.join("assets", "component/primary/weapon/primary_uncommon.png"))
             self.primary_proj_img = pygame.image.load(os.path.join("assets", "component/primary/projectile/projectile_primary_uncommon.png"))
+            self.primary_proj_size = (32, 32)
             self.primary_damage = 150
+
         if self.game_state.player_current_primary == "rare":
             self.primary_img = pygame.image.load(os.path.join("assets", "component/primary/weapon/primary_rare.png"))
             self.primary_proj_img = pygame.image.load(os.path.join("assets", "component/primary/projectile/projectile_primary_rare.png"))
+            self.primary_proj_size = (32, 32)
             self.primary_damage = 250
+
         if self.game_state.player_current_primary == "epic":
             self.primary_img = pygame.image.load(os.path.join("assets", "component/primary/weapon/primary_epic.png"))
             self.primary_proj_img = pygame.image.load(os.path.join("assets", "component/primary/projectile/projectile_primary_epic.png"))
+            self.primary_proj_size = (32, 128)
             self.primary_damage = 350
+
         if self.game_state.player_current_primary == "legendary":
             self.primary_img = pygame.image.load(os.path.join("assets", "component/primary/weapon/primary_legendary.png"))
             self.primary_proj_img = pygame.image.load(os.path.join("assets", "component/primary/projectile/projectile_primary_legendary.png"))
+            self.primary_proj_size = (32, 128)
             self.primary_damage = 500
+
 
     def set_player_secondary(self):
         if self.game_state.player_current_secondary == "common":
             self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_common.png"))
             self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_common.png"))
             self.secondary_damage = 200
+
         if self.game_state.player_current_secondary == "uncommon":
             self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_uncommon.png"))
             self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_uncommon.png"))
             self.secondary_damage = 300
+
         if self.game_state.player_current_secondary == "rare":
             self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_rare.png"))
             self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_rare.png"))
             self.secondary_damage = 450
+            
         if self.game_state.player_current_secondary == "epic":
             self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_epic.png"))
             self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_epic.png"))
             self.secondary_damage = 600
+
         if self.game_state.player_current_secondary == "legendary":
             self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_legendary.png"))
             self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_legendary.png"))
@@ -106,12 +122,16 @@ class Player(Spaceship):
     def set_player_thruster(self):
         if self.game_state.player_current_thruster == "common":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_common.png"))
+
         if self.game_state.player_current_thruster == "uncommon":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_uncommon.png"))
+
         if self.game_state.player_current_thruster == "rare":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_rare.png"))
+
         if self.game_state.player_current_thruster == "epic":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_epic.png"))
+
         if self.game_state.player_current_thruster == "legendary":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_legendary.png"))
 
@@ -161,6 +181,9 @@ class Player(Spaceship):
 
     def draw(self, window):
         super().draw(window)
+        window.blit(self.primary_img, (self.x, self.y))
+        window.blit(self.secondary_img, (self.x, self.y))
+        window.blit(self.thruster_img, (self.x, self.y))
         self.healthbar(window)
 
     def healthbar(self, window):

@@ -59,6 +59,9 @@ class GameController:
         self.player = Player(300, 680)
         self.player.set_game_state(self.game_state)
         self.player.set_player_ship()
+        self.player.set_player_primary()
+        self.player.set_player_secondary()
+        self.player.set_player_thruster()
 
         #self.mainMenuView = MainMenuView()
         self.mainMenuView.set_game_state(self.game_state)
@@ -230,11 +233,6 @@ class GameController:
             explosion.draw(self.game_state.window)
 
         self.player.draw(self.game_state.window)
-
-        self.game_state.window.blit(self.player.ship_img, (self.player.x, self.player.y))
-        self.game_state.window.blit(self.player.primary_img, (self.player.x, self.player.y))
-        self.game_state.window.blit(self.player.secondary_img, (self.player.x, self.player.y))
-        self.game_state.window.blit(self.player.thruster_img, (self.player.x, self.player.y))
 
         pygame.display.update()
 
