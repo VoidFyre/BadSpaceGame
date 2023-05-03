@@ -142,7 +142,7 @@ class GameController:
 
                 upgrade.play_sound()
                 
-                upgrade.reward_player(upgrade.orb_type, self.game_state)
+                upgrade.reward_player(upgrade.orb_type, self.game_state, self.player)
 
                 self.game_state.upgrades.remove(upgrade)
 
@@ -307,10 +307,6 @@ class GameController:
                 self.clean_up()
 
                 self.player.set_game_state(self.game_state)
-                self.player.set_player_ship()
-                self.player.set_player_primary()
-                self.player.set_player_secondary()
-                self.player.set_player_thruster()
 
                 if self.game_state.lost:
                     self.game_state.playing = False
