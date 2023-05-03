@@ -134,6 +134,9 @@ class GameController:
 
             elif healthAid.y + healthAid.get_height() > 750:
                 self.game_state.healthAids.remove(healthAid)
+    def random_upgrade_move_and_collision_check(self):
+        for upgrade in self.game_state.upgrades[:]:
+            upgrade.move(self.game_state.upgrades_vel)
 
     def update_game_status(self):
         # if self.game_state.lives <= 0 or self.player.health <= 0:
@@ -231,6 +234,9 @@ class GameController:
 
         for explosion in self.game_state.explosions:
             explosion.draw(self.game_state.window)
+        
+        for upgrades in self.game_state.upgrades:
+            upgrades.draw(self.game_state.window)
 
         self.player.draw(self.game_state.window)
 
@@ -284,6 +290,10 @@ class GameController:
                 self.player.move_primary_proj(-self.game_state.laser_vel, self.game_state.enemies)
 
                 self.player.move_secondary_proj(-self.game_state.laser_vel, self.game_state.enemies)
+
+                self.random_upgrade_move_and_collision_check()
+
+                self.player.move_lasers(-self.game_state.laser_vel, self.game_state.enemies)
 
                 self.redraw_window()
 

@@ -10,6 +10,8 @@ class Enemy(Spaceship):
 
     def __init__(self, x, y, rarity, wave):
         super().__init__(x, y, 100, ship_img = None)
+        self.x = x
+        self.y = y
         self.rarity = rarity
 
         # Create a timer for enemy shooting

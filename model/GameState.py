@@ -16,9 +16,11 @@ class GameState:
 
         self.enemies = []
         self.healthAids = []
+        self.upgrades = []
         self.wave_length = 5
         self.enemy_vel = 1
         self.healthAids_vel = 1
+        self.upgrades_vel = 1
 
         self.explosions = []
 
@@ -90,6 +92,7 @@ class GameState:
 
         self.enemies = []
         self.healthAids = []
+        self.upgrades = []
         self.wave_length = 5
         self.enemy_vel = 1
 
