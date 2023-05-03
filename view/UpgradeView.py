@@ -1,15 +1,16 @@
 import pygame
+import os
 
 class UpgradeView:
     def __init__(self):
         self.images = {
-            'weapon': pygame.image.load("./assets/interface/inventory_screen.png"),
-            'shield': pygame.image.load("./assets/interface/inventory_screen.png"),
-            'speed': pygame.image.load("./assets/interface/inventory_screen.png")
+            'uncommon_orb': pygame.image.load(os.path.join("assets", "upgrade-orb/uncommon_orb.png")),
+            'rare_orb': pygame.image.load(os.path.join("assets", "upgrade-orb/rare_orb.png")),
+            'epic_orb': pygame.image.load(os.path.join("assets", "upgrade-orb/epic_orb.png")),
+            'legendary_orb': pygame.image.load(os.path.join("assets", "upgrade-orb/legendary_orb.png"))
         }
-        self.width = self.images['weapon'].get_width()
-        self.height = self.images['weapon'].get_height()
+        self.width = 30
+        self.height = 30
 
-    def draw(self, screen, powerup):
-        image = self.images[powerup.type]
-        screen.blit(image, (powerup.x - self.width/2, powerup.y - self.height/2))
+    def draw(self, window, orb, x, y):
+        window.blit(self.images[orb], (x, y))

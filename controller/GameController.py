@@ -13,6 +13,7 @@ from model.HealthAid import HealthAid
 from view.MainMenuView import MainMenuView
 from view.PauseMenuView import PauseMenuView
 from view.GameOverMenuView import GameOverMenuView
+from view.UpgradeView import UpgradeView
 
 from view.MovingBackgroundView import MovingBackgroundView
 
@@ -104,6 +105,7 @@ class GameController:
                 enemy.shoot()
 
             if collide(enemy, self.player):
+
                 self.player.health -= 10
                 self.game_state.enemies.remove(enemy)
 
