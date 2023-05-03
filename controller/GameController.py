@@ -134,9 +134,17 @@ class GameController:
 
             elif healthAid.y + healthAid.get_height() > 750:
                 self.game_state.healthAids.remove(healthAid)
+
     def random_upgrade_move_and_collision_check(self):
         for upgrade in self.game_state.upgrades[:]:
             upgrade.move(self.game_state.upgrades_vel)
+            if collide(upgrade, self.player):
+
+                upgrade.play_sound()
+                
+                upgrade.reward_player(upgrade.orb_type, self.game_state)
+
+                self.game_state.upgrades.remove(upgrade)
 
     def update_game_status(self):
         # if self.game_state.lives <= 0 or self.player.health <= 0:
