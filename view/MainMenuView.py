@@ -143,6 +143,11 @@ class MainMenuView:
             width=self.WINDOW_SIZE[0] * 0.8
         )
         menu.add.label('Made with lots of love <3')
+        menu.add.label('Sounds Gathered From Freesound.org : ')
+        menu.add.label('adhdreaming - button sound')
+        menu.add.label('astrand - blaster sound')
+        menu.add.label('kutejnikov - death sound')
+        menu.add.label('romariogrande - Alien Dream (Background Music)')
         return menu
 
     def main_background(self) -> None:
