@@ -9,6 +9,7 @@ class GameOverMenuView:
 
     def __init__(self):
 
+        self.label_text = True
         self.game_state = None
 
         # Load background images
@@ -112,7 +113,7 @@ class GameOverMenuView:
         self.game_state = game_state
 
     def run(self):
-        # Check if playing is already True
+
         self.main_menu.mainloop(self.game_state.window, self.main_background, disable_loop = self.game_state.lost,
                                 fps_limit=self.FPS)
         # Flip surface

@@ -255,6 +255,21 @@ class GameController:
                 self.player.create_ship_explosion(enemy)
                 self.game_state.enemies.remove(enemy)
 
+    def draw_game_stats(self):
+
+        # Generate a random RGB color
+        color = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
+
+        # Draw the kill count and score using the random color
+        kill_label = self.game_state.main_font.render(f"Kills: {self.game_state.total_killing}", 1, color)
+        score_label = self.game_state.main_font.render(f"Score: {self.game_state.score_counter}", 1, color)
+
+        # Blit the labels onto the screen
+        self.game_state.window.blit(kill_label, (250, 250))
+        self.game_state.window.blit(score_label, (400, 250))
+
+        pygame.display.update()
+
     def run_game_loop(self):
 
         self.game_state.enable_music()
@@ -262,6 +277,7 @@ class GameController:
         while self.game_state.running:
 
             while self.game_state.lost is True:
+                self.draw_game_stats()
                 self.gameOverMenuView.run()
                 if self.game_state.current_menu_button == "Restart":
                     self.reset_game_controller_by_restart()
