@@ -13,7 +13,7 @@ from model.HealthAid import HealthAid
 from view.MainMenuView import MainMenuView
 from view.PauseMenuView import PauseMenuView
 from view.GameOverMenuView import GameOverMenuView
-from view.UpgradeView import UpgradeView
+from model.Upgrade import Upgrade
 
 from view.MovingBackgroundView import MovingBackgroundView
 
