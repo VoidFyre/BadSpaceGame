@@ -1,7 +1,6 @@
 import pygame
 from view.SpaceshipView import SpaceshipView
 from view.EnemyView import EnemyView
-from view.UpgradeView import UpgradeView
 
 class GameView:
     def __init__(self, width, height):
@@ -20,7 +19,6 @@ class GameView:
         #self.menu_view = Menu()
         self.spaceship_view = SpaceshipView()
         self.enemy_view = EnemyView()
-        self.powerup_view = UpgradeView()
 
     def drawMenu(self, game):
         return
