@@ -78,52 +78,58 @@ class Upgrade:
             print(type)
             if rand_upgrade > 0 and rand_upgrade <= 25:
                 #Set ship to uncommon
-                game_state.player_current_ship = "uncommon"
-                print(game_state.player_current_ship)
+                if game_state.player_current_ship == "common":
+                    game_state.player_current_ship = "uncommon"
             if rand_upgrade > 25 and rand_upgrade <= 50:
                 #Set thruster to uncommon
-                game_state.player_current_thruster = "uncommon"
-                print(game_state.player_current_thruster)
+                if game_state.player_current_thruster == "common":
+                    game_state.player_current_thruster = "uncommon"
             if rand_upgrade > 50 and rand_upgrade <= 75:
                 #Set primary to uncommon
-                print("3")
-                game_state.player_current_primary = "uncommon"
-                print(game_state.player_current_primary)
+                if game_state.player_current_primary == "common":
+                    game_state.player_current_primary = "uncommon"
             if rand_upgrade > 75 and rand_upgrade <= 100:
                 #Set secondary to uncommon
-                print("4")
-                game_state.player_current_secondary = "uncommon"
-                print(game_state.player_current_secondary)
+                if game_state.player_current_secondary == "common":
+                    game_state.player_current_secondary = "uncommon"
 
         if type == 'rare':
             print(type)
             if rand_upgrade > 0 and rand_upgrade <= 25:
                 #Set ship to rare
-                game_state.player_current_ship = "rare"
+                if game_state.player_current_ship == "common" or game_state.player_current_ship == "uncommon":
+                    game_state.player_current_ship = "rare"
             if rand_upgrade > 25 and rand_upgrade <= 50:
                 #Set thruster to rare
-                game_state.player_current_thruster = "rare"
+                if game_state.player_current_thruster == "common" or game_state.player_current_thruster == "uncommon":
+                    game_state.player_current_thruster = "rare"
             if rand_upgrade > 50 and rand_upgrade <= 75:
                 #Set primary to rare
-                game_state.player_current_primary = "rare"
+                if game_state.player_current_primary == "common" or game_state.player_current_primary == "uncommon":
+                    game_state.player_current_primary = "rare"
             if rand_upgrade > 75 and rand_upgrade <= 100:
                 #Set secondary to rare
-                game_state.player_current_secondary = "rare"
+                if game_state.player_current_secondary == "common" or game_state.player_current_secondary == "uncommon":
+                    game_state.player_current_secondary = "rare"
 
         if type == 'epic':
             print(type)
             if rand_upgrade > 0 and rand_upgrade <= 25:
                 #Set ship to epic
-                game_state.player_current_ship = "epic"
+                if game_state.player_current_ship != "legendary":
+                    game_state.player_current_ship = "epic"
             if rand_upgrade > 25 and rand_upgrade <= 50:
                 #Set thruster to epic
-                game_state.player_current_thruster = "epic"
+                if game_state.player_current_thruster != "legendary":
+                    game_state.player_current_thruster = "epic"
             if rand_upgrade > 50 and rand_upgrade <= 75:
                 #Set primary to epic
-                game_state.player_current_primary = "epic"
+                if game_state.player_current_primary != "legendary":
+                    game_state.player_current_primary = "epic"
             if rand_upgrade > 75 and rand_upgrade <= 100:
                 #Set secondary to epic
-                game_state.player_current_secondary = "epic"
+                if game_state.player_current_secondary != "legendary":
+                    game_state.player_current_secondary = "epic"
 
         if type == 'legendary':
             print(type)
