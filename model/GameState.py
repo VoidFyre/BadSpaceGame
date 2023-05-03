@@ -51,13 +51,13 @@ class GameState:
 
         self.current_menu_button = None
 
-        self.player_current_ship = "common"
+        self.player_current_ship = "legendary"
 
-        self.player_current_primary = "common"
+        self.player_current_primary = "legendary"
 
-        self.player_current_secondary = "common"
+        self.player_current_secondary = "legendary"
 
-        self.player_current_thruster = "common"
+        self.player_current_thruster = "legendary"
 
         # Background
         self.BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "space_background_9.png")).convert_alpha(), (self.DISPLAY_W, self.DISPLAY_H))
