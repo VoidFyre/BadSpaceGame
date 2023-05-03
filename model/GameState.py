@@ -7,12 +7,10 @@ class GameState:
     def __init__(self, width=700, height=500):
 
         pygame.init()
-        pygame.display.set_caption("Bad Space Game")
+        pygame.display.set_caption("Bad things in outer Space, the Game")
 
         self.FPS = 60
         self.level = 0
-        #self.main_font = pygame.font.SysFont("comicsans", 50)
-        #self.lost_font = pygame.font.SysFont("comicsans", 60)
 
         self.enemies = []
         self.healthAids = []
@@ -24,7 +22,7 @@ class GameState:
 
         self.explosions = []
 
-        self.player_vel = 5
+        self.player_vel = 3
         self.laser_vel = 5
 
         self.lost = False

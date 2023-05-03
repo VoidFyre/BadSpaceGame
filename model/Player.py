@@ -134,18 +134,23 @@ class Player(Spaceship):
     def set_player_thruster(self):
         if self.game_state.player_current_thruster == "common":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_common.png"))
+            self.game_state.player_vel = 3
 
         if self.game_state.player_current_thruster == "uncommon":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_uncommon.png"))
+            self.game_state.player_vel = 4
 
         if self.game_state.player_current_thruster == "rare":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_rare.png"))
+            self.game_state.player_vel = 5
 
         if self.game_state.player_current_thruster == "epic":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_epic.png"))
+            self.game_state.player_vel = 6
 
         if self.game_state.player_current_thruster == "legendary":
             self.thruster_img = pygame.image.load(os.path.join("assets", "component/thruster/thruster_legendary.png"))
+            self.game_state.player_vel = 8
 
     def set_game_state(self, game_state):
         self.game_state = game_state
@@ -187,14 +192,14 @@ class Player(Spaceship):
 
     def shoot_primary(self):
         if self.primary_cool_down_counter == 0:
-            self.shoot_sound.play()
+            self.primary_fire_sound.play()
             primary_proj = Laser(self.x, self.y-18, self.primary_proj_img, self.primary_proj_size)
             self.primary_projectiles.append(primary_proj)
             self.primary_cool_down_counter = 30
 
     def shoot_secondary(self):
         if self.secondary_cool_down_counter == 0:
-            self.shoot_sound.play()
+            self.secondary_fire_sound.play()
             secondary_proj = Laser(self.x+16, self.y-18, self.secondary_proj_img, self.secondary_proj_size)
             self.secondary_projectiles.append(secondary_proj)
             self.secondary_cool_down_counter = 90

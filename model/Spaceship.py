@@ -18,7 +18,8 @@ class Spaceship:
         self.laser_size = (64, 64)
         self.primary_proj_size = (64, 64)
         self.secondary_proj_size = (32, 32)
-        self.shoot_sound = pygame.mixer.Sound(os.path.join("assets", "sounds/laser_fire.ogg"))
+        self.primary_fire_sound = pygame.mixer.Sound(os.path.join("assets", "sounds/laser_fire.ogg"))
+        self.secondary_fire_sound = pygame.mixer.Sound(os.path.join("assets", "sounds/secondary_fire.ogg"))
 
         self.laser_dmg = 10
 
@@ -51,7 +52,7 @@ class Spaceship:
 
     def shoot(self):
         if self.cool_down_counter == 0:
-            self.shoot_sound.play()
+            self.primary_fire_sound.play()
             laser = Laser(self.x-12, self.y-18, self.laser_img, self.laser_size)
             self.lasers.append(laser)
             self.cool_down_counter = 30
