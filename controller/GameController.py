@@ -238,7 +238,9 @@ class GameController:
 
     def clean_up(self):
         for explosion in self.game_state.explosions[:]:
-            self.game_state.explosions.remove(explosion)
+            print(abs(explosion.explosion_shoot_timer - pygame.time.get_ticks()))
+            if abs(explosion.explosion_shoot_timer - pygame.time.get_ticks()) >= 200:
+                self.game_state.explosions.remove(explosion)
 
     def run_game_loop(self):
 
@@ -279,7 +281,9 @@ class GameController:
 
                 self.random_health_move_and_collision_check()
 
-                self.player.move_lasers(-self.game_state.laser_vel, self.game_state.enemies)
+                self.player.move_primary_proj(-self.game_state.laser_vel, self.game_state.enemies)
+
+                self.player.move_secondary_proj(-self.game_state.laser_vel, self.game_state.enemies)
 
                 self.redraw_window()
 

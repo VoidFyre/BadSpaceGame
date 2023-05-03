@@ -9,7 +9,7 @@ from model.Laser import Laser
 class Enemy(Spaceship):
 
     def __init__(self, x, y, rarity, wave):
-        super().__init__(x, y, health = 20, ship_img = None)
+        super().__init__(x, y, 100, ship_img = None)
         self.rarity = rarity
 
         # Create a timer for enemy shooting
@@ -58,9 +58,11 @@ class Enemy(Spaceship):
             "legendary": (self.LEGENDARY_SPACE_SHIP, self.LEGENDARY_LASER, self.LARGE_LASER, self.LEGENDARY_HEALTH, self.LEGENDARY_DMG)
         }
 
+        
         self.ship_img, self.laser_img, self.laser_size, self.health, self.laser_dmg = self.RARITY_MAP[self.rarity]
         self.mask = pygame.mask.from_surface(self.ship_img)
-
+        self.max_health = self.health
+        
 
     def move(self, vel):
         self.y += vel
@@ -82,3 +84,11 @@ class Enemy(Spaceship):
 
     def get_width(self):
         return self.ship_img.get_width()
+    
+    def draw(self, window):
+        super().draw(window)
+        self.healthbar(window)
+    
+    def healthbar(self, window):
+        pygame.draw.rect(window, (255,0,0), (self.x, self.y - self.ship_img.get_height() + 40, self.ship_img.get_width(), 10))
+        pygame.draw.rect(window, (0,255,0), (self.x, self.y - self.ship_img.get_height() + 40, self.ship_img.get_width() * (self.health/self.max_health), 10))
