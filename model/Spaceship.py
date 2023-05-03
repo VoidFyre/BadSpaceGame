@@ -26,6 +26,7 @@ class Spaceship:
         window.blit(self.ship_img, (self.x, self.y))
         for laser in self.lasers:
             laser.draw(window)
+        
 
     def move_lasers(self, vel, obj):
         self.cooldown()
@@ -54,20 +55,6 @@ class Spaceship:
             laser = Laser(self.x-12, self.y-18, self.laser_img, self.laser_size)
             self.lasers.append(laser)
             self.cool_down_counter = 30
-
-    def shoot_primary(self):
-        if self.primary_cool_down_counter == 0:
-            self.shoot_sound.play()
-            laser = Laser(self.x-12, self.y-18, self.primary_proj_img, self.primary_proj_size)
-            self.lasers.append(laser)
-            self.primary_cool_down_counter = 30
-
-    def shoot_secondary(self):
-        if self.secondary_cool_down_counter == 0:
-            self.shoot_sound.play()
-            laser = Laser(self.x+16, self.y-18, self.secondary_proj_img, self.secondary_proj_size)
-            self.lasers.append(laser)
-            self.secondary_cool_down_counter = 90
 
     def get_width(self):
         return self.ship_img.get_width()

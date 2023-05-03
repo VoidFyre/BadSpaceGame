@@ -2,9 +2,13 @@ import pygame
 
 import os
 
+from model.Laser import Laser
+
 from model.Spaceship import Spaceship
 
 from model.Explosion import Explosion
+
+from model.Upgrade import Upgrade
 
 
 class Player(Spaceship):
@@ -14,6 +18,8 @@ class Player(Spaceship):
         # Images
 
         self.game_state = None
+        self.primary_projectiles = []
+        self.secondary_projectiles = []
 
         self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_common.png"))
         self.primary_img = pygame.image.load(os.path.join("assets", "component/primary/weapon/primary_common.png"))
@@ -23,6 +29,7 @@ class Player(Spaceship):
         self.primary_proj_size = (32, 32)
         self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_common.png"))
         self.secondary_proj_size = (32, 32)
+        self.secondary_proj_explosion = pygame.image.load(os.path.join("assets", "component/secondary/explosion/explosion_secondary_common.png"))
         self.laser_img = pygame.image.load(os.path.join("assets", "component/primary/projectile/projectile_primary_common.png"))
 
         self.primary_damage = 100
@@ -97,26 +104,31 @@ class Player(Spaceship):
         if self.game_state.player_current_secondary == "common":
             self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_common.png"))
             self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_common.png"))
+            self.secondary_proj_explosion = pygame.image.load(os.path.join("assets", "component/secondary/explosion/explosion_secondary_common.png"))
             self.secondary_damage = 200
 
         if self.game_state.player_current_secondary == "uncommon":
             self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_uncommon.png"))
             self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_uncommon.png"))
+            self.secondary_proj_explosion = pygame.image.load(os.path.join("assets", "component/secondary/explosion/explosion_secondary_uncommon.png"))
             self.secondary_damage = 300
 
         if self.game_state.player_current_secondary == "rare":
             self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_rare.png"))
             self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_rare.png"))
+            self.secondary_proj_explosion = pygame.image.load(os.path.join("assets", "component/secondary/explosion/explosion_secondary_rare.png"))
             self.secondary_damage = 450
             
         if self.game_state.player_current_secondary == "epic":
             self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_epic.png"))
             self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_epic.png"))
+            self.secondary_proj_explosion = pygame.image.load(os.path.join("assets", "component/secondary/explosion/explosion_secondary_epic.png"))
             self.secondary_damage = 600
 
         if self.game_state.player_current_secondary == "legendary":
             self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_legendary.png"))
             self.secondary_proj_img = pygame.image.load(os.path.join("assets", "component/secondary/projectile/projectile_secondary_legendary.png"))
+            self.secondary_proj_explosion = pygame.image.load(os.path.join("assets", "component/secondary/explosion/explosion_secondary_legendary.png"))
             self.secondary_damage = 900
 
     def set_player_thruster(self):
@@ -138,29 +150,101 @@ class Player(Spaceship):
     def set_game_state(self, game_state):
         self.game_state = game_state
 
-    def move_lasers(self, vel, objs):
+    def move_primary_proj(self, vel, objs):
         self.cooldown()
-        for laser in self.lasers:
-            laser.move(vel)
-            if laser.off_screen(750):
-                self.lasers.remove(laser)
+        for primary_proj in self.primary_projectiles:
+            primary_proj.move(vel)
+            if primary_proj.off_screen(750):
+                self.primary_projectiles.remove(primary_proj)
             else:
                 for obj in objs:
-                    if laser.collision(obj):
+                    if primary_proj.collision(obj):
                         obj.health -= self.primary_damage
                         if obj.health <= 0:
+                            
+                            x = self.x
+                            y = self.y
+
                             objs.remove(obj)
+
+                            newUpgrade = Upgrade()
+                            newUpgrade.x = x
+                            newUpgrade.y = y
+                            newUpgrade.orb_type = newUpgrade.summon_random_orb()
+
+                            self.game_state.upgrades.append(newUpgrade)
 
                             self.track_score_and_kills(obj)
 
-                            self.create_explosion(obj)
+                            self.create_ship_explosion(obj)
 
-                            if laser in self.lasers:
-                                self.lasers.remove(laser)
+                            if primary_proj in self.primary_projectiles:
+                                self.primary_projectiles.remove(primary_proj)
 
-    def create_explosion(self, obj):
-        explosion = Explosion(obj.get_x(), obj.get_y())
+    def move_secondary_proj(self, vel, objs):
+        self.cooldown()
+        for secondary_proj in self.secondary_projectiles:
+            secondary_proj.move(vel)
+            if secondary_proj.off_screen(750):
+                self.secondary_projectiles.remove(secondary_proj)
+            else:
+                for obj in objs:
+                    if secondary_proj.collision(obj):
+                        obj.health -= self.secondary_damage
+                        self.create_proj_explosion(obj, self.secondary_proj_explosion)
+                        if secondary_proj in self.secondary_projectiles:
+                            self.secondary_projectiles.remove(secondary_proj)
 
+        for explosion in self.game_state.explosions:
+            for obj in objs:
+                if explosion.collision(obj):
+                    if explosion.type == "weapon":
+                        obj.health -= self.secondary_damage
+                    if obj.health <= 0:
+                        x = self.x
+                        y = self.y
+
+                        objs.remove(obj)
+
+                        newUpgrade = Upgrade()
+                        newUpgrade.x = x
+                        newUpgrade.y = y
+                        newUpgrade.orb_type = newUpgrade.summon_random_orb()
+
+                        self.game_state.upgrades.append(newUpgrade)
+
+                        self.track_score_and_kills(obj)
+
+                        self.create_ship_explosion(obj)
+
+                        if explosion in self.game_state.explosions:
+                            self.game_state.explosions.remove(explosion)
+
+    def shoot_primary(self):
+        if self.primary_cool_down_counter == 0:
+            self.shoot_sound.play()
+            primary_proj = Laser(self.x, self.y-18, self.primary_proj_img, self.primary_proj_size)
+            self.primary_projectiles.append(primary_proj)
+            self.primary_cool_down_counter = 30
+
+    def shoot_secondary(self):
+        if self.secondary_cool_down_counter == 0:
+            self.shoot_sound.play()
+            secondary_proj = Laser(self.x+16, self.y-18, self.secondary_proj_img, self.secondary_proj_size)
+            self.secondary_projectiles.append(secondary_proj)
+            self.secondary_cool_down_counter = 90
+
+    def create_ship_explosion(self, obj):
+        explosion = Explosion(obj.get_x(), obj.get_y(), pygame.image.load(os.path.join("assets", "component/secondary/explosion/explosion_secondary_common.png")), (80, 80))
+        explosion.type = "ship"
+        self.game_state.explosions.append(explosion)
+
+        explosion.play_sound()
+
+    def create_proj_explosion(self, obj, img):
+
+        explosion = Explosion(obj.get_x(), obj.get_y(), self.secondary_proj_explosion, (160, 160))
+        explosion.type = "weapon"
         self.game_state.explosions.append(explosion)
 
         explosion.play_sound()
@@ -184,6 +268,10 @@ class Player(Spaceship):
         window.blit(self.primary_img, (self.x, self.y))
         window.blit(self.secondary_img, (self.x, self.y))
         window.blit(self.thruster_img, (self.x, self.y))
+        for primary_proj in self.primary_projectiles:
+            primary_proj.draw(window)
+        for secondary_proj in self.secondary_projectiles:
+            secondary_proj.draw(window)
         self.healthbar(window)
 
     def healthbar(self, window):

@@ -11,10 +11,7 @@ class Laser:
     def __init__(self, x, y, img, size):
         self.x = x
         self.y = y
-        self.img = img
         self.img = pygame.transform.scale(img, size)
-        self.mask = pygame.mask.from_surface(self.img)
-
         self.mask = pygame.mask.from_surface(self.img)
 
     def draw(self, window):
