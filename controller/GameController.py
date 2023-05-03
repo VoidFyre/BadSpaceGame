@@ -203,7 +203,7 @@ class GameController:
         self.movingBackgroundView.run()
 
         # draw text
-        level_label = self.game_state.main_font.render(f"Level: {self.game_state.level}", 1, (255, 255, 255))
+        level_label = self.game_state.main_font.render(f"WAVE: {self.game_state.level}", 1, (255, 255, 255))
 
         self.game_state.window.blit(level_label, (self.game_state.DISPLAY_W - level_label.get_width() - 10, 10))
 
