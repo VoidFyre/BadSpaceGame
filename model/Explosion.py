@@ -27,8 +27,12 @@ class Explosion:
         self.y += vel
 
     def draw(self, window):
-
-        window.blit(self.explosion_image, (self.x, self.y))
+        
+        if self.type == "ship":
+            window.blit(self.explosion_image, (self.x - 20, self.y - 20))
+        
+        if self.type == "weapon":
+            window.blit(self.explosion_image, (self.x - 120, self.y - 120))
 
     def get_width(self):
         return self.explosion_image.get_width()

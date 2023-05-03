@@ -162,8 +162,8 @@ class Player(Spaceship):
                         obj.health -= self.primary_damage
                         if obj.health <= 0:
                             
-                            x = self.x
-                            y = self.y
+                            x = obj.x
+                            y = obj.y
 
                             objs.remove(obj)
 
@@ -178,8 +178,7 @@ class Player(Spaceship):
 
                             self.create_ship_explosion(obj)
 
-                            if primary_proj in self.primary_projectiles:
-                                self.primary_projectiles.remove(primary_proj)
+                            self.primary_projectiles.remove(primary_proj)
 
     def move_secondary_proj(self, vel, objs):
         self.cooldown()
@@ -190,10 +189,8 @@ class Player(Spaceship):
             else:
                 for obj in objs:
                     if secondary_proj.collision(obj):
-                        obj.health -= self.secondary_damage
                         self.create_proj_explosion(obj, self.secondary_proj_explosion)
-                        if secondary_proj in self.secondary_projectiles:
-                            self.secondary_projectiles.remove(secondary_proj)
+                        self.secondary_projectiles.remove(secondary_proj)
 
         for explosion in self.game_state.explosions:
             for obj in objs:
@@ -201,8 +198,8 @@ class Player(Spaceship):
                     if explosion.type == "weapon":
                         obj.health -= self.secondary_damage
                     if obj.health <= 0:
-                        x = self.x
-                        y = self.y
+                        x = obj.x
+                        y = obj.y
 
                         objs.remove(obj)
 
@@ -243,7 +240,7 @@ class Player(Spaceship):
 
     def create_proj_explosion(self, obj, img):
 
-        explosion = Explosion(obj.get_x(), obj.get_y(), self.secondary_proj_explosion, (160, 160))
+        explosion = Explosion(obj.get_x(), obj.get_y(), self.secondary_proj_explosion, (300, 300))
         explosion.type = "weapon"
         self.game_state.explosions.append(explosion)
 

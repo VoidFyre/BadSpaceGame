@@ -244,7 +244,6 @@ class GameController:
 
     def clean_up(self):
         for explosion in self.game_state.explosions[:]:
-            print(abs(explosion.explosion_shoot_timer - pygame.time.get_ticks()))
             if abs(explosion.explosion_shoot_timer - pygame.time.get_ticks()) >= 200:
                 self.game_state.explosions.remove(explosion)
 
