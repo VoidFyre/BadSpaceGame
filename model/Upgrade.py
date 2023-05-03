@@ -10,6 +10,10 @@ class Upgrade:
         self.epic_orb = pygame.image.load(os.path.join("assets", "upgrade-orb/epic_orb.png"))
         self.legendary_orb = pygame.image.load(os.path.join("assets", "upgrade-orb/legendary_orb.png"))
 
+        self.mask = pygame.mask.from_surface(self.uncommon_orb)
+
+        self.sound = pygame.mixer.Sound(os.path.join("assets", "sounds/upgrade.ogg"))
+
 
         self.width = 30
         self.height = 30
@@ -17,6 +21,10 @@ class Upgrade:
         self.orb_type = None
         self.x = None
         self.y = None
+
+    def play_sound(self):
+        # Play the sound
+        self.sound.play()
 
     def draw(self, window):
         if self.orb_type == 'common':
@@ -44,88 +52,90 @@ class Upgrade:
             return reward_type
         elif rand_orb > 40 and rand_orb <= 70 :
             reward_type = 'uncommon'
-            print(reward_type + " ")
-            print(rand_orb)
             return reward_type
         
         #Rare orb
         elif rand_orb > 70 and rand_orb <= 85:
             reward_type = 'rare'
-            print(reward_type + " ")
-            print(rand_orb)
             return reward_type
 
         #Epic orb
         elif rand_orb > 85 and rand_orb <= 95 :
             reward_type = 'epic'
-            print(reward_type + " ")
-            print(rand_orb)
             return reward_type
 
         #Legendary orb
         elif rand_orb > 95 and rand_orb <= 100:
             reward_type = 'legendary'
-            print(reward_type + " ")
-            print(rand_orb)
             return reward_type
     
     # This function rewards the player with a random item
     # The player has an equal chance of getting a ship, thruster, primary weapon, or secondary weapon
     # based off of the orb that they collide with
-    def reward_player(self, type):
+    def reward_player(self, type, game_state):
         rand_upgrade = random.randint(1,100)
         if type == 'uncommon':
+            print(type)
             if rand_upgrade > 0 and rand_upgrade <= 25:
                 #Set ship to uncommon
-                pass
+                game_state.player_current_ship = "uncommon"
+                print(game_state.player_current_ship)
             if rand_upgrade > 25 and rand_upgrade <= 50:
                 #Set thruster to uncommon
-                pass
+                game_state.player_current_thruster = "uncommon"
+                print(game_state.player_current_thruster)
             if rand_upgrade > 50 and rand_upgrade <= 75:
                 #Set primary to uncommon
-                pass
+                print("3")
+                game_state.player_current_primary = "uncommon"
+                print(game_state.player_current_primary)
             if rand_upgrade > 75 and rand_upgrade <= 100:
                 #Set secondary to uncommon
-                pass
+                print("4")
+                game_state.player_current_secondary = "uncommon"
+                print(game_state.player_current_secondary)
 
         if type == 'rare':
+            print(type)
             if rand_upgrade > 0 and rand_upgrade <= 25:
                 #Set ship to rare
-                pass
+                game_state.player_current_ship = "rare"
             if rand_upgrade > 25 and rand_upgrade <= 50:
                 #Set thruster to rare
-                pass
+                game_state.player_current_thruster = "rare"
             if rand_upgrade > 50 and rand_upgrade <= 75:
                 #Set primary to rare
-                pass
+                game_state.player_current_primary = "rare"
             if rand_upgrade > 75 and rand_upgrade <= 100:
                 #Set secondary to rare
-                pass
+                game_state.player_current_secondary = "rare"
 
         if type == 'epic':
+            print(type)
             if rand_upgrade > 0 and rand_upgrade <= 25:
                 #Set ship to epic
-                pass
+                game_state.player_current_ship = "epic"
             if rand_upgrade > 25 and rand_upgrade <= 50:
                 #Set thruster to epic
-                pass
+                game_state.player_current_thruster = "epic"
             if rand_upgrade > 50 and rand_upgrade <= 75:
                 #Set primary to epic
-                pass
+                game_state.player_current_primary = "epic"
             if rand_upgrade > 75 and rand_upgrade <= 100:
                 #Set secondary to epic
-                pass
+                game_state.player_current_secondary = "epic"
 
         if type == 'legendary':
+            print(type)
             if rand_upgrade > 0 and rand_upgrade <= 25:
                 #Set ship to legendary
-                pass
+                game_state.player_current_ship = "legendary"
             if rand_upgrade > 25 and rand_upgrade <= 50:
                 #Set thruster to legendary
-                pass
+                game_state.player_current_thruster = "legendary"
             if rand_upgrade > 50 and rand_upgrade <= 75:
                 #Set primary to legendary
-                pass
+                game_state.player_current_primary = "legendary"
             if rand_upgrade > 75 and rand_upgrade <= 100:
                 #Set secondary to legendary
-                pass
+                game_state.player_current_secondary = "legendary"

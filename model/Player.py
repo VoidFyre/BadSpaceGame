@@ -162,8 +162,8 @@ class Player(Spaceship):
                         obj.health -= self.primary_damage
                         if obj.health <= 0:
                             
-                            x = self.x
-                            y = self.y
+                            x = obj.x
+                            y = obj.y
 
                             objs.remove(obj)
 
@@ -201,8 +201,8 @@ class Player(Spaceship):
                     if explosion.type == "weapon":
                         obj.health -= self.secondary_damage
                     if obj.health <= 0:
-                        x = self.x
-                        y = self.y
+                        x = obj.x
+                        y = obj.y
 
                         objs.remove(obj)
 
