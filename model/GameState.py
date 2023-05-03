@@ -105,6 +105,14 @@ class GameState:
         self.score_counter = 0
         self.total_killing = 0
 
+        self.player_current_ship = "common"
+
+        self.player_current_primary = "common"
+
+        self.player_current_secondary = "common"
+
+        self.player_current_thruster = "common"
+
         self.running, self.playing, self.game_over, self.pause = True, True, False, False
 
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESCAPE_KEY, self.SPACE_KEY = False, False, False, False, False, False
