@@ -20,8 +20,8 @@ class Enemy(Spaceship):
         self.COMMON_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_common.png"))
         self.UNCOMMON_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_uncommon.png"))
         self.RARE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_rare.png"))
-        self.EPIC_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_epic.png"))
-        self.LEGENDARY_SPACE_SHIP = pygame.image.load(os.path.join("assets", "component/enemy/enemy_legendary.png"))
+        self.EPIC_SPACE_SHIP = pygame.transform.scale(pygame.image.load(os.path.join("assets", "component/enemy/enemy_epic.png")).convert_alpha(),(70, 70))
+        self.LEGENDARY_SPACE_SHIP = pygame.transform.scale(pygame.image.load(os.path.join("assets", "component/enemy/enemy_legendary.png")).convert_alpha(),(120, 120))
 
         # Lasers
         self.COMMON_LASER = pygame.image.load(os.path.join("assets", "component/primary/projectile"
@@ -43,7 +43,7 @@ class Enemy(Spaceship):
         self.UNCOMMON_HEALTH = 150 * (1 + (0.2 * wave))
         self.RARE_HEALTH = 200 * (1 + (0.2 * wave))
         self.EPIC_HEALTH = 250 * (1 + (0.2 * wave))
-        self.LEGENDARY_HEALTH = 400 * (1 + (0.2 * wave))
+        self.LEGENDARY_HEALTH = 500 * (1 + (0.2 * wave))
 
         # Damage
         self.COMMON_DMG = 10 * (1 + (0.2 * wave))

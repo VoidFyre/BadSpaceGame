@@ -109,9 +109,16 @@ class GameController:
 
             if collide(enemy, self.player):
 
-                self.player.health -= self.player.max_health/2
+                if enemy.rarity == "common" or enemy.rarity == "uncommon":
+                    self.player.health -= self.player.max_health / 3
+                if enemy.rarity == "rare":
+                    self.player.health -= self.player.max_health / 2
+                if enemy.rarity == "epic":
+                    self.player.health -= (self.player.max_health / 3) * 2
+                if enemy.rarity == "legendary":
+                    self.player.health -= (self.player.max_health / 4) * 3
                 self.game_state.enemies.remove(enemy)
-
+                
             elif enemy.y + enemy.get_height() > 750:
                 self.game_state.enemies.remove(enemy)
 
