@@ -144,6 +144,8 @@ class GameController:
 
     def random_upgrade_move_and_collision_check(self):
         for upgrade in self.game_state.upgrades[:]:
+            if upgrade.orb_type == 'common':
+                self.game_state.upgrades.remove(upgrade)
             upgrade.move(self.game_state.upgrades_vel)
             if collide(upgrade, self.player):
 
@@ -250,12 +252,13 @@ class GameController:
                 x = enemy.x
                 y = enemy.y
 
-                newUpgrade = Upgrade()
-                newUpgrade.x = x
-                newUpgrade.y = y
-                newUpgrade.orb_type = newUpgrade.summon_random_orb(enemy.rarity)
-
-                self.game_state.upgrades.append(newUpgrade)
+                if enemy.rarity != "common":
+                    newUpgrade = Upgrade()
+                    newUpgrade.x = x
+                    newUpgrade.y = y
+                    newUpgrade.orb_type = newUpgrade.summon_random_orb(enemy.rarity)
+                    if newUpgrade.orb_type != None:
+                        self.game_state.upgrades.append(newUpgrade)
 
                 self.player.track_score_and_kills(enemy)
 

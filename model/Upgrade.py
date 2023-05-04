@@ -8,7 +8,7 @@ class Upgrade:
         self.uncommon_orb = pygame.image.load(os.path.join("assets", "upgrade-orb/uncommon_orb.png"))
         self.rare_orb = pygame.image.load(os.path.join("assets", "upgrade-orb/rare_orb.png"))
         self.epic_orb = pygame.image.load(os.path.join("assets", "upgrade-orb/epic_orb.png"))
-        self.legendary_orb = pygame.transform.scale(pygame.image.load(os.path.join("assets", "upgrade-orb/epic_orb.png")).convert_alpha(),(60, 60))
+        self.legendary_orb = pygame.transform.scale(pygame.image.load(os.path.join("assets", "upgrade-orb/legendary_orb.png")).convert_alpha(),(60, 60))
 
         self.mask = pygame.mask.from_surface(self.uncommon_orb)
 
@@ -18,7 +18,7 @@ class Upgrade:
         self.width = 30
         self.height = 30
 
-        self.orb_type = None
+        self.orb_type = 'common'
         self.x = None
         self.y = None
 
