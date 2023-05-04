@@ -126,8 +126,7 @@ class GameController:
                 enemy.health = 0
                 
             elif enemy.y + enemy.get_height() > 750:
-                enemy.health = 0
-                self.hit.play()
+                self.game_state.enemies.remove(enemy)
 
     def random_health_move_and_collision_check(self):
         for healthAid in self.game_state.healthAids[:]:
