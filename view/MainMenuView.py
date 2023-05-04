@@ -16,7 +16,7 @@ class MainMenuView:
 
         # Load background images
         self.main_background_image = pygame_menu.BaseImage(image_path=os.path.join("assets", "space_background_9.png"))
-        self.menu_background_image = pygame_menu.BaseImage(image_path=os.path.join("assets", "interface/logo.png"))
+        self.menu_background_image = pygame_menu.BaseImage(image_path=os.path.join("assets", "interface/main_menu_background.png"))
 
         # Create themes
         main_menu_theme = self._create_main_menu_theme()
