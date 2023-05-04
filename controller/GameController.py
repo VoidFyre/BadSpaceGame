@@ -287,9 +287,9 @@ class GameController:
             f"Best Score: {self.game_state.high_score_counter}", 1, color)
 
         # Blit the labels onto the screen
-        self.game_state.window.blit(kill_label, (250, 210))
+        self.game_state.window.blit(kill_label, (200, 210))
         self.game_state.window.blit(score_label, (400, 210))
-        self.game_state.window.blit(best_kill_label, (250, 260))
+        self.game_state.window.blit(best_kill_label, (200, 260))
         self.game_state.window.blit(best_score_label, (400, 260))
 
         pygame.display.update()
