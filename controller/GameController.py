@@ -123,10 +123,11 @@ class GameController:
                     self.player.health -= (self.player.max_health / 3) * 2
                 if enemy.rarity == "legendary":
                     self.player.health -= (self.player.max_health / 4) * 3
-                self.game_state.enemies.remove(enemy)
+                enemy.health = 0
                 
             elif enemy.y + enemy.get_height() > 750:
-                self.game_state.enemies.remove(enemy)
+                enemy.health = 0
+                self.hit.play()
 
     def random_health_move_and_collision_check(self):
         for healthAid in self.game_state.healthAids[:]:

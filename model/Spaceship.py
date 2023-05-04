@@ -20,6 +20,8 @@ class Spaceship:
         self.secondary_proj_size = (32, 32)
         self.primary_fire_sound = pygame.mixer.Sound(os.path.join("assets", "sounds/laser_fire.ogg"))
         self.secondary_fire_sound = pygame.mixer.Sound(os.path.join("assets", "sounds/secondary_fire.ogg"))
+        self.hit = pygame.mixer.Sound(os.path.join("assets", "sounds/hit.wav"))
+
 
         self.laser_dmg = 10
 
@@ -36,6 +38,7 @@ class Spaceship:
             if laser.off_screen(750):
                 self.lasers.remove(laser)
             elif laser.collision(obj):
+                self.hit.play()
                 obj.health -= self.laser_dmg
                 self.lasers.remove(laser)
 
