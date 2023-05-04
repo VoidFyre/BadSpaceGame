@@ -31,6 +31,9 @@ class GameState:
         self.score_counter = 0
         self.total_killing = 0
 
+        self.high_score_counter = 0
+        self.high_total_killing = 0
+
         self.running, self.playing, self.game_over, self.pause = True, False, False, False
 
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESCAPE_KEY, self.SPACE_KEY = False, False, False, False, False, False

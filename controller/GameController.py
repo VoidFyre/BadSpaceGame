@@ -15,6 +15,8 @@ from view.PauseMenuView import PauseMenuView
 from view.GameOverMenuView import GameOverMenuView
 from model.Upgrade import Upgrade
 
+from model.SaveStats import SaveStats
+
 from view.MovingBackgroundView import MovingBackgroundView
 
 
@@ -50,6 +52,8 @@ class GameController:
         self.gameOverMenuView = GameOverMenuView()
         self.gameOverMenuView.set_game_state(self.game_state)
 
+        self.saveStats = SaveStats(self.game_state)
+
         self.scroll = 0
 
     def reset_game_controller_by_restart(self, width=750, height=750):
@@ -74,6 +78,8 @@ class GameController:
 
         #self.gameOverMenuView = GameOverMenuView()
         self.gameOverMenuView.set_game_state(self.game_state)
+
+        self.saveStats = SaveStats(self.game_state)
 
         self.scroll = 0
 
@@ -267,16 +273,24 @@ class GameController:
 
     def draw_game_stats(self):
 
+        self.saveStats.end_game()
+
         # Generate a random RGB color
         color = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
 
         # Draw the kill count and score using the random color
         kill_label = self.game_state.main_font.render(f"Kills: {self.game_state.total_killing}", 1, color)
         score_label = self.game_state.main_font.render(f"Score: {self.game_state.score_counter}", 1, color)
+        best_kill_label = self.game_state.main_font.render(
+            f"Best Kills: {self.game_state.high_total_killing}", 1, color)
+        best_score_label = self.game_state.main_font.render(
+            f"Best Score: {self.game_state.high_score_counter}", 1, color)
 
         # Blit the labels onto the screen
-        self.game_state.window.blit(kill_label, (250, 250))
-        self.game_state.window.blit(score_label, (400, 250))
+        self.game_state.window.blit(kill_label, (250, 210))
+        self.game_state.window.blit(score_label, (400, 210))
+        self.game_state.window.blit(best_kill_label, (250, 260))
+        self.game_state.window.blit(best_score_label, (400, 260))
 
         pygame.display.update()
 
