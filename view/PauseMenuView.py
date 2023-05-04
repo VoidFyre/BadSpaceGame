@@ -17,18 +17,6 @@ class PauseMenuView:
         self.menu_background_image = pygame_menu.BaseImage(image_path=os.path.join("assets", "space_background_10.png"))
         # Inventory Screen
         self.inventory_screen_image = pygame.image.load(os.path.join("assets", "interface/inventory_screen.png"))
-        # Ship Itemcards
-        self.ship_itemcard_common = pygame.image.load(os.path.join("assets", "interface/itemcard/ship_common.png"))
-        self.ship_itemcard_uncommon = pygame.image.load(os.path.join("assets", "interface/itemcard/ship_uncommon.png"))
-        self.ship_itemcard_rare = pygame.image.load(os.path.join("assets", "interface/itemcard/ship_rare.png"))
-        self.ship_itemcard_epic = pygame.image.load(os.path.join("assets", "interface/itemcard/ship_epic.png"))
-        self.ship_itemcard_legendary = pygame.image.load(os.path.join("assets", "interface/itemcard/ship_legendary.png"))
-        #Component Itemcards
-        self.component_itemcard_common = pygame.image.load(os.path.join("assets", "interface/itemcard/component_common.png"))
-        self.component_itemcard_uncommon = pygame.image.load(os.path.join("assets", "interface/itemcard/component_uncommon.png"))
-        self.component_itemcard_rare = pygame.image.load(os.path.join("assets", "interface/itemcard/component_rare.png"))
-        self.component_itemcard_epic = pygame.image.load(os.path.join("assets", "interface/itemcard/component_epic.png"))
-        self.component_itemcard_legendary = pygame.image.load(os.path.join("assets", "interface/itemcard/component_legendary.png"))
 
         # Create themes
         main_menu_theme = self._create_main_menu_theme()
