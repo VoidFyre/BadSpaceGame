@@ -20,7 +20,6 @@ class Player(Spaceship):
         self.game_state = None
         self.primary_projectiles = []
         self.secondary_projectiles = []
-
         self.ship_img = pygame.image.load(os.path.join("assets", "component/ship/ship_common.png"))
         self.primary_img = pygame.image.load(os.path.join("assets", "component/primary/weapon/primary_common.png"))
         self.secondary_img = pygame.image.load(os.path.join("assets", "component/secondary/weapon/secondary_common.png"))
@@ -164,6 +163,7 @@ class Player(Spaceship):
             else:
                 for obj in objs:
                     if primary_proj.collision(obj):
+                        self.hit.play()
                         obj.health -= self.primary_damage
                         self.primary_projectiles.remove(primary_proj)
 
@@ -176,6 +176,7 @@ class Player(Spaceship):
             else:
                 for obj in objs:
                     if secondary_proj.collision(obj):
+                        self.hit.play()
                         explosion = self.create_proj_explosion(obj, self.secondary_proj_explosion)
                         self.secondary_projectiles.remove(secondary_proj)
                         self.explosion_damage(explosion, objs)
