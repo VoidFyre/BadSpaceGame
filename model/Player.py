@@ -184,26 +184,30 @@ class Player(Spaceship):
         for primary_proj in self.primary_projectiles:
             primary_proj.move(vel)
             if primary_proj.off_screen(750):
-                self.primary_projectiles.remove(primary_proj)
+                if primary_proj in self.primary_projectiles:
+                    self.primary_projectiles.remove(primary_proj)
             else:
                 for obj in objs:
                     if primary_proj.collision(obj):
                         self.hit.play()
                         obj.health -= self.primary_damage
-                        self.primary_projectiles.remove(primary_proj)
+                        if primary_proj in self.primary_projectiles:
+                            self.primary_projectiles.remove(primary_proj)
 
     def move_secondary_proj(self, vel, objs):
         self.cooldown()
         for secondary_proj in self.secondary_projectiles:
             secondary_proj.move(vel)
             if secondary_proj.off_screen(750):
-                self.secondary_projectiles.remove(secondary_proj)
+                if secondary_proj in self.secondary_projectiles:
+                    self.secondary_projectiles.remove(secondary_proj)
             else:
                 for obj in objs:
                     if secondary_proj.collision(obj):
                         self.hit.play()
                         explosion = self.create_proj_explosion(obj, self.secondary_proj_explosion)
-                        self.secondary_projectiles.remove(secondary_proj)
+                        if secondary_proj in self.secondary_projectiles:
+                            self.secondary_projectiles.remove(secondary_proj)
                         self.explosion_damage(explosion, objs)
 
                     
