@@ -144,3 +144,7 @@
   - It shouldn’t have an impact on our development timeline, as these challenges should be simple to overcome within the future.
 - **Will your final game design need to change?**
   - The final game design won't need to change.
+
+---
+## Game Documentation Final Submission ##
+The entire finalized game documentation can be seen within the file "Game Design Document 4.0.0"
