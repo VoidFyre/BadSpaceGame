@@ -16,7 +16,7 @@ class MainMenuView:
 
         # Load background images
         self.main_background_image = pygame_menu.BaseImage(image_path=os.path.join("assets", "space_background_9.png"))
-        self.menu_background_image = pygame_menu.BaseImage(image_path=os.path.join("assets", "space_background_10.png"))
+        self.menu_background_image = pygame_menu.BaseImage(image_path=os.path.join("assets", "interface/logo.png"))
 
         # Create themes
         main_menu_theme = self._create_main_menu_theme()
@@ -87,38 +87,6 @@ class MainMenuView:
                                         state_text=('Off', 'On'), align=pygame_menu.locals.ALIGN_LEFT,
                                         onchange=self.music_toggle_callback)
 
-        # Selectable items
-        items = [('common', 'COMMON'),
-                 ('uncommon', 'UNCOMMON'),
-                 ('rare', 'RARE'),
-                 ('epic', 'EPIC'),
-                 ('legendary', 'LEGENDARY')]
-
-        # Create selector with 3 difficulty options
-        settings_menu.add.selector(
-            'Select Ship\t',
-            items,
-            selector_id='select_ship',
-            default=0,
-            align=pygame_menu.locals.ALIGN_LEFT,
-            onchange = self.ship_selector_callback
-        )
-
-        # settings_menu.add.dropselect_multiple(
-        #     title='Player Ship',
-        #     items=[('Common', (0, 0, 0)),
-        #            ('Uncommon', (0, 0, 255)),
-        #            ('Rare', (0, 255, 255)),
-        #            ('Epic', (255, 0, 255)),
-        #            ('Legendary', (0, 255, 0))],
-        #     dropselect_multiple_id='pickcolors',
-        #     max_selected=1,
-        #     open_middle=True,
-        #     selection_box_height=5,  # How many options show if opened
-        #     align = pygame_menu.locals.ALIGN_LEFT
-        # )
-
-        #settings_menu.add.button('Play', self.play_button_callback, align=pygame_menu.locals.ALIGN_LEFT)
         settings_menu.add.button('Back', pygame_menu.events.BACK, align=pygame_menu.locals.ALIGN_LEFT)
         settings_menu.widget_font = pygame_menu.font.FONT_MUNRO
 

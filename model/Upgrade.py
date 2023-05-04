@@ -8,7 +8,7 @@ class Upgrade:
         self.uncommon_orb = pygame.image.load(os.path.join("assets", "upgrade-orb/uncommon_orb.png"))
         self.rare_orb = pygame.image.load(os.path.join("assets", "upgrade-orb/rare_orb.png"))
         self.epic_orb = pygame.image.load(os.path.join("assets", "upgrade-orb/epic_orb.png"))
-        self.legendary_orb = pygame.image.load(os.path.join("assets", "upgrade-orb/legendary_orb.png"))
+        self.legendary_orb = pygame.transform.scale(pygame.image.load(os.path.join("assets", "upgrade-orb/epic_orb.png")).convert_alpha(),(60, 60))
 
         self.mask = pygame.mask.from_surface(self.uncommon_orb)
 
@@ -41,14 +41,17 @@ class Upgrade:
         self.y += vel
 
     # Function to summon an orb on a ship that has been destroyed
-    # The player has a 40% chance of getting nothing, a 30% chance of getting uncommon, a 15% chance of getting rare,
-    # a 10% chance of getting epic, and a 5% chance of getting a legendary item.
+    # Every ship has a 20% chance to drop an upgrade of its own rarity
     def summon_random_orb(self, rarity):
         rand_orb = random.randint(1, 100)
         reward_type = 'common' #Set reward type to the basic common
 
+        #Default
+        if rarity == "common":
+            return reward_type
+
         #Uncommon Orb
-        if rand_orb <= 20 and rarity == "uncommon":
+        elif rand_orb <= 20 and rarity == "uncommon":
             reward_type = 'uncommon'
             return reward_type
         
